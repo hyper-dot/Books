@@ -1,9 +1,13 @@
 "use client";
 import React from "react";
 import { useRef } from "react";
-import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 
+import { createAccount } from "@/actions/accouts.action";
+
+import SubmitButton from "@/components/SubmitButton";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -11,8 +15,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createNewSupplier } from "@/actions/accouts.action";
-import SubmitButton from "@/components/SubmitButton";
 
 const page = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -23,20 +25,20 @@ const page = () => {
       <form
         ref={formRef}
         action={async (formData) => {
-          const { message } = await createNewSupplier(formData);
+          const { message } = await createAccount(formData);
           toast({
             title: message,
           });
           formRef.current?.reset();
         }}
       >
-        <div className="mb-4">
-          <h1 className="text-2xl">Add Account</h1>
+        <div className="my-4">
+          <h1 className="text-2xl font-semibold">Add an account</h1>
         </div>
 
         <div className="flex gap-3 flex-col">
           <div>
-            <label htmlFor="account_name">Name</label>
+            <Label htmlFor="account_name">Name</Label>
             <Input
               placeholder="Ex : Subigya Enterprises"
               id="account_name"
@@ -44,7 +46,8 @@ const page = () => {
             />
           </div>
           <div>
-            <Select>
+            <Label>Choose account type</Label>
+            <Select name="account_type">
               <SelectTrigger className="">
                 <SelectValue placeholder="Account Type" />
               </SelectTrigger>
@@ -56,7 +59,7 @@ const page = () => {
           </div>
 
           <div>
-            <label htmlFor="contact_no">Contact No</label>
+            <Label htmlFor="contact_no">Contact No</Label>
             <Input
               type="number"
               placeholder="98xxxxxxxx"
@@ -66,11 +69,11 @@ const page = () => {
           </div>
 
           <div>
-            <label htmlFor="vat">Vat No</label>
+            <Label htmlFor="vat">Vat No</Label>
             <Input type="number" id="vat" name="vat" placeholder="Ex: 12345" />
           </div>
           <div>
-            <label htmlFor="address">Address</label>
+            <Label htmlFor="address">Address</Label>
             <Input
               id="address"
               name="address"
