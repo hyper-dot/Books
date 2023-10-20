@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Item {
+  item_id        Int       @id @default(autoincrement())
+  item_name      String
+  price_per_item Float
+  stock          Int
+  purchaseAccounts PurchaseAccount[]
+  salesAccounts    SalesAccount[]
+}
+
+model Dealers {
+  dealer_id    Int     @id @default(autoincrement())
+  dealer_name  String
+  contact_no   String
+  amount_payable Float
+  address      String
+  vat_no       String
+  purchaseAccounts PurchaseAccount[]
+}
+
+model Buyers {
+  buyer_id        Int     @id @default(autoincrement())
+  buyer_name      String
+  contact_no      String
+  amount_receivable Float
+  address         String
+  vat_no          String
+  salesAccounts    SalesAccount[]
+}
+
+model PurchaseAccount {
+  purchase_id           Int       @id @default(autoincrement())
+  purchase_date         DateTime  @default(now())
+  item_id               Int
+  dealer_id             Int
+  purchase_price_per_item Float
+  quantity              Int
+  total_amount          Float
+  discount              Float
+  total_cost            Float
+  purchase_type         String
+  item                  Item      @relation(fields: [item_id], references: [item_id])
+  dealer                Dealers   @relation(fields: [dealer_id], references: [dealer_id])
+}
+
+model SalesAccount {
+  sales_id           Int       @id @default(autoincrement())
+  sales_date         DateTime  @default(now())
+  item_id            Int
+  buyer_id           Int
+  sales_price_per_item Float
+  quantity            Int
+  total_amount        Float
+  discount            Float
+  total_revenue       Float
+  sales_type         String
+  item               Item      @relation(fields: [item_id], references: [item_id])
+  buyer              Buyers    @relation(fields: [buyer_id], references: [buyer_id])
+}
+
+model CashAccount {
+  transaction_id    Int      @id @default(autoincrement())
+  transaction_date  DateTime @default(now())
+  description       String
+  amount            Float
+  transaction_type  String
+}
