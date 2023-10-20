@@ -1,6 +1,8 @@
+"use client";
 import React from "react";
+import { useRef } from "react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 import {
   Select,
@@ -9,11 +11,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { createNewSupplier } from "@/actions/accouts.action";
+import SubmitButton from "@/components/SubmitButton";
 
 const page = () => {
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const { toast } = useToast();
+
   return (
     <div className="max-w-xl mx-auto">
-      <form action="">
+      <form
+        ref={formRef}
+        action={async (formData) => {
+          const { message } = await createNewSupplier(formData);
+          toast({
+            title: message,
+          });
+          formRef.current?.reset();
+        }}
+      >
         <div className="mb-4">
           <h1 className="text-2xl">Add Account</h1>
         </div>
@@ -63,7 +79,7 @@ const page = () => {
           </div>
         </div>
 
-        <Button className="mt-4 w-full">Submit</Button>
+        <SubmitButton />
       </form>
     </div>
   );

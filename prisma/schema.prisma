@@ -20,21 +20,21 @@ model Item {
 
 model Suppliers {
   supplier_id    Int     @id @default(autoincrement())
-  supplier_name  String
+  supplier_name  String @unique
   contact_no   String
   amount_payable Float
   address      String
-  vat_no       String
+  vat_no       String @unique
   purchaseAccounts PurchaseAccount[]
 }
 
 model Customers {
   customer_id        Int     @id @default(autoincrement())
-  customer_name      String
-  contact_no      String
-  amount_receivable Float
-  address         String
-  vat_no          String
+  customer_name      String @unique
+  contact_no         String
+  amount_receivable  Float
+  address            String
+  vat_no          String @unique
   salesAccounts    SalesAccount[]
 }
 
