@@ -1,6 +1,7 @@
 "use server";
 
 import { PrismaClient } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export const addProduct = async (formdata: FormData) => {
   const prisma = new PrismaClient();
@@ -21,6 +22,7 @@ export const addProduct = async (formdata: FormData) => {
     const product = await prisma.item.create({
       data: data,
     });
+    revalidatePath("/products");
     return { success: true, message: "Product added successfully." };
   } catch (err) {
     console.log(err);

@@ -21,7 +21,7 @@ const page = () => {
   const { toast } = useToast();
 
   return (
-    <div className="max-w-xl mx-auto px-4">
+    <div className="max-w-xl">
       <form
         ref={formRef}
         action={async (formData) => {
@@ -85,7 +85,7 @@ const page = () => {
           </div>
         </div>
 
-        <SubmitButton />
+        <SubmitButton name="Add" loadingName="Adding Account" />
       </form>
     </div>
   );

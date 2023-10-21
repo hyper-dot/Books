@@ -1,5 +1,6 @@
 "use server";
 import { PrismaClient } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 const prisma = new PrismaClient();
 
 // Create account function
@@ -36,7 +37,7 @@ export const createSupplier = async (formdata: FormData) => {
           amount_payable: 0,
         },
       });
-
+      revalidatePath("/suppliers");
       return {
         success: true,
         message: "Supplier's account created successfully.",
@@ -45,6 +46,7 @@ export const createSupplier = async (formdata: FormData) => {
       return { success: false, message: "All fields are required." };
     }
   } catch (e) {
+    console.log(e);
     return { success: false, message: "Internal server error." };
   }
 };
@@ -67,6 +69,7 @@ export const createCustomer = async (formdata: FormData) => {
           amount_receivable: 0,
         },
       });
+      revalidatePath("/customers");
       return {
         success: true,
         message: "Customer's account created successfully.",
@@ -76,5 +79,22 @@ export const createCustomer = async (formdata: FormData) => {
     }
   } catch (e) {
     return { success: false, message: "Internal server error." };
+  }
+};
+
+// Delete Customer ID
+export const deleteCustomerItem = async (id: number) => {
+  if (!id) return { success: false, message: "Missing id of customer" };
+  try {
+    await prisma.customers.delete({
+      where: {
+        customer_id: id,
+      },
+    });
+    revalidatePath("/customers");
+    return { success: true, message: "Customer deleted successfully" };
+  } catch (err) {
+    console.error(err);
+    return { success: false, message: "Internal server error" };
   }
 };

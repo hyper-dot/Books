@@ -11,67 +11,67 @@ datasource db {
 }
 
 model Item {
-  item_id        Int       @id @default(autoincrement())
-  item_name      String
-  stock          Int? @default(0)
+  item_id          Int               @id @default(autoincrement())
+  item_name        String
+  stock            Int?              @default(0)
   purchaseAccounts PurchaseAccount[]
   salesAccounts    SalesAccount[]
 }
 
 model Suppliers {
-  supplier_id    Int     @id @default(autoincrement())
-  supplier_name  String  @unique
-  contact_no   String
-  amount_payable Float
-  address      String
-  vat_no       String @unique
+  supplier_id      Int               @id @default(autoincrement())
+  supplier_name    String            @unique
+  contact_no       String
+  amount_payable   Float
+  address          String
+  vat_no           String            @unique
   purchaseAccounts PurchaseAccount[]
 }
 
 model Customers {
-  customer_id        Int     @id @default(autoincrement())
-  customer_name      String  @unique
-  contact_no         String
-  amount_receivable  Float
-  address            String
-  vat_no          String @unique
-  salesAccounts    SalesAccount[]
+  customer_id       Int            @id @default(autoincrement())
+  customer_name     String         @unique
+  contact_no        String
+  amount_receivable Float
+  address           String
+  vat_no            String         @unique
+  salesAccounts     SalesAccount[]
 }
 
 model PurchaseAccount {
-  purchase_id           Int       @id @default(autoincrement())
-  purchase_date         DateTime  @default(now())
-  item_id               Int
-  supplier_id           Int
+  purchase_id             Int       @id @default(autoincrement())
+  purchase_date           DateTime  @default(now())
+  item_id                 Int
+  supplier_id             Int
   purchase_price_per_item Float
-  quantity              Int
-  total_amount          Float
-  discount              Float
-  total_cost            Float
-  purchase_type         String
-  item                  Item      @relation(fields: [item_id], references: [item_id])
-  supplier              Suppliers   @relation(fields: [supplier_id], references: [supplier_id])
+  quantity                Int
+  total_amount            Float
+  discount                Float
+  total_cost              Float
+  purchase_type           String
+  item                    Item      @relation(fields: [item_id], references: [item_id])
+  supplier                Suppliers @relation(fields: [supplier_id], references: [supplier_id])
 }
 
 model SalesAccount {
-  sales_id           Int       @id @default(autoincrement())
-  sales_date         DateTime  @default(now())
-  item_id            Int
-  customer_id        Int
+  sales_id             Int       @id @default(autoincrement())
+  sales_date           DateTime  @default(now())
+  item_id              Int
+  customer_id          Int
   sales_price_per_item Float
-  quantity            Int
-  total_amount        Float
-  discount            Float
-  total_revenue       Float
-  sales_type          String
-  item                Item      @relation(fields: [item_id], references: [item_id])
-  customer            Customers    @relation(fields: [customer_id], references: [customer_id])
+  quantity             Int
+  total_amount         Float
+  discount             Float
+  total_revenue        Float
+  sales_type           String
+  item                 Item      @relation(fields: [item_id], references: [item_id])
+  customer             Customers @relation(fields: [customer_id], references: [customer_id])
 }
 
 model CashAccount {
-  transaction_id    Int      @id @default(autoincrement())
-  transaction_date  DateTime @default(now())
-  description       String
-  amount            Float
-  transaction_type  String
+  transaction_id   Int      @id @default(autoincrement())
+  transaction_date DateTime @default(now())
+  description      String
+  amount           Float
+  transaction_type String
 }

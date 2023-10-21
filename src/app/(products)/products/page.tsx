@@ -1,5 +1,7 @@
 import React from "react";
 import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
 import {
   Table,
   TableBody,
@@ -13,11 +15,11 @@ import {
 import { Pencil, Trash } from "lucide-react";
 
 const page = async () => {
-  const prisma = new PrismaClient();
-  const suppliers = await prisma.suppliers.findMany();
+  const products = await prisma.item.findMany();
   await prisma.$disconnect();
+
   return (
-    <div className="max-w-5xl">
+    <div className="max-w-4xl">
       <Table>
         <TableCaption className="text-xs">
           A list of your suppliers
@@ -25,30 +27,19 @@ const page = async () => {
         <TableHeader>
           <TableRow>
             <TableHead>S.N.</TableHead>
-            <TableHead>Supplier's Name</TableHead>
-            <TableHead>Contact No</TableHead>
-            <TableHead>Address</TableHead>
-            <TableHead>VAT No</TableHead>
-            <TableHead className="text-right">Amount Payable</TableHead>
+            <TableHead>Product Name</TableHead>
+            <TableHead>Stock</TableHead>
+            <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {/* <TableRow>
-            <TableCell className="font-medium">INV001</TableCell>
-            <TableCell>Paid</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell className="text-right">$250.00</TableCell>
-          </TableRow> */}
-          {suppliers.map((s, index) => (
-            <TableRow key={s.supplier_id}>
+          {products.map((p, index) => (
+            <TableRow key={p.item_id}>
               <TableCell>{index + 1}</TableCell>
-              <TableCell>{s.supplier_name}</TableCell>
-              <TableCell>{s.contact_no}</TableCell>
-              <TableCell>{s.address}</TableCell>
-              <TableCell>{s.vat_no}</TableCell>
-              <TableCell className="text-right">{s.amount_payable}</TableCell>
+              <TableCell>{p.item_name}</TableCell>
+              <TableCell>{p.stock}</TableCell>
               <TableCell>
-                <div className="flex gap-4 items-center pl-4">
+                <div className="flex gap-4 items-center">
                   <button className="hover:text-blue-500">
                     <Pencil size={16} />
                   </button>
