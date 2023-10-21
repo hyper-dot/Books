@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { Loader } from "lucide-react";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 
 const SubmitButton = () => {
   const { pending } = useFormStatus();

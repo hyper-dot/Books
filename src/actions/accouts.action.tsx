@@ -7,12 +7,14 @@ export const createAccount = async (formdata: FormData) => {
   const account_type = formdata.get("account_type");
   if (account_type === "supplier") {
     const res = await createSupplier(formdata);
+    await prisma.$disconnect();
     return res;
   } else if (account_type === "customer") {
     const res = await createCustomer(formdata);
+    await prisma.$disconnect();
     return res;
   } else {
-    return { message: "Please select account type" };
+    return { success: false, message: "Please select account type" };
   }
 };
 
@@ -34,12 +36,16 @@ export const createSupplier = async (formdata: FormData) => {
           amount_payable: 0,
         },
       });
-      return { message: "Supplier's account created successfully." };
+
+      return {
+        success: true,
+        message: "Supplier's account created successfully.",
+      };
     } else {
-      return { message: "All fields are required." };
+      return { success: false, message: "All fields are required." };
     }
   } catch (e) {
-    return { message: "Internal server error." };
+    return { success: false, message: "Internal server error." };
   }
 };
 
@@ -61,11 +67,14 @@ export const createCustomer = async (formdata: FormData) => {
           amount_receivable: 0,
         },
       });
-      return { message: "Customer's account created successfully." };
+      return {
+        success: true,
+        message: "Customer's account created successfully.",
+      };
     } else {
-      return { message: "All fields are required." };
+      return { success: false, message: "All fields are required." };
     }
   } catch (e) {
-    return { message: "Internal server error." };
+    return { success: false, message: "Internal server error." };
   }
 };

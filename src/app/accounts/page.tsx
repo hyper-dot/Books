@@ -21,15 +21,18 @@ const page = () => {
   const { toast } = useToast();
 
   return (
-    <div className="max-w-xl mx-auto">
+    <div className="max-w-xl mx-auto px-4">
       <form
         ref={formRef}
         action={async (formData) => {
-          const { message } = await createAccount(formData);
+          const { success, message } = await createAccount(formData);
           toast({
             title: message,
+            variant: success ? "default" : "destructive",
           });
-          formRef.current?.reset();
+          if (success) {
+            formRef.current?.reset();
+          }
         }}
       >
         <div className="my-4">
