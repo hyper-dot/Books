@@ -9,9 +9,8 @@ const page = async () => {
   await prisma.$disconnect();
 
   return (
-    <div className="max-w-xl">
-      <div className="my-4">
-        <h1 className="text-2xl font-semibold">Add Purchase Record</h1>
+    <div className="">
+      <div className="my-4 justify-around w-full">
         <PurchaseForm suppliers={suppliers} products={products} />
       </div>
     </div>

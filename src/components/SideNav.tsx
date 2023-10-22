@@ -4,7 +4,7 @@ import { BookText } from "lucide-react";
 
 const SideNav = () => {
   return (
-    <div className="h-screen border-r fixed px-4">
+    <div className="h-screen border-r px-4 hidden xl:block fixed">
       <div>
         <h1 className="font-semibold text-3xl px-1">
           <Link className="flex gap-2 items-center" href="/">
@@ -12,6 +12,12 @@ const SideNav = () => {
           </Link>
         </h1>
       </div>
+      <ul className="my-4 border-y p-4 flex flex-col gap-2">
+        <li>
+          <Link href="/">Dashboard</Link>
+        </li>
+      </ul>
+
       <ul className="my-4 border-y p-4 flex flex-col gap-2">
         <h4 className="font-semibold ">Accounts</h4>
         <li>

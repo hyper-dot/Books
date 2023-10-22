@@ -20,10 +20,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main className="grid grid-cols-6 container">
-          <nav className="col-span-1">
+          <nav className="xl:col-span-1">
             <SideNav />
           </nav>
-          <div className="col-span-5 mx-8">{children}</div>
+          <div className="col-span-6 xl:col-span-5">{children}</div>
           <Toaster />
         </main>
       </body>

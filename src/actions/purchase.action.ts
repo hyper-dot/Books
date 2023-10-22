@@ -1,24 +1,36 @@
 "use server";
-export const addPurchaseRecord = (formdata: FormData) => {
-  const supplier = formdata.get("supplier_id");
-  const product_name = formdata.get("product_name");
-  const qty = formdata.get("qty");
-  const unit_price = formdata.get("unit_price");
-  const discount = formdata.get("discount");
-  const total_amount = formdata.get("total_amount");
-  const purchase_type = formdata.get("purchase_type");
-  const partial_payment = formdata.get("partial_payment");
-  const date = formdata.get("date");
+import { prisma } from "@/lib/prisma";
+import { cartProduct } from "@/constants/products/types";
 
-  console.log({
-    supplier,
-    product_name,
-    qty,
-    unit_price,
-    discount,
-    total_amount,
-    purchase_type,
-    date,
-    partial_payment,
-  });
+type TPurchaseRecordDataType = {
+  productList: cartProduct[];
+  totalAmount: number;
+  totalAmountAfterDiscount: number;
+  discount: number;
+  supplierId: number;
+  purchaseType: string;
+  date: string;
+};
+
+export const addPurchaseRecord = async (data: TPurchaseRecordDataType) => {
+  // Checks if product list is empty
+  if (data.productList.length === 0) {
+    return { success: false, message: "Invalid product list" };
+  }
+  // Validates the date
+  if (!data.supplierId) {
+    return { success: false, message: "Supplier is missing" };
+  }
+  // validated the purchase type
+  if (!data.purchaseType) {
+    return { success: false, message: "Please specify transaction type" };
+  }
+
+  // Validates the transaction
+  if (!data.date) {
+    return { success: false, message: "Please specify date of transaction" };
+  }
+
+  console.log(data);
+  return { success: true, message: "All Done !!" };
 };
