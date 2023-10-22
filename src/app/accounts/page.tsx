@@ -28,7 +28,7 @@ const page = () => {
           const { success, message } = await createAccount(formData);
           toast({
             title: message,
-            variant: success ? "default" : "destructive",
+            variant: success ? "success" : "destructive",
           });
           if (success) {
             formRef.current?.reset();

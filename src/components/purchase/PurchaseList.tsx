@@ -79,11 +79,15 @@ const PurchaseList: React.FC<TPurchaseListProps> = ({
           onChange={(e) => setProductID(e.target.value)}
           className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
         >
-          <option disabled value="">
+          <option className="dark:bg-primary-foreground" disabled value="">
             Select a product
           </option>
           {products.map((p: productSchemaType) => (
-            <option key={p.item_id} value={p.item_id}>
+            <option
+              className="dark:bg-primary-foreground"
+              key={p.item_id}
+              value={p.item_id}
+            >
               {p.item_name}
             </option>
           ))}
@@ -107,7 +111,7 @@ const PurchaseList: React.FC<TPurchaseListProps> = ({
           <div className="items-center gap-2 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-within:ring-1 focus-within:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
             <span>Rs.</span>
             <input
-              className="w-full focus:outline-none"
+              className="w-full focus:outline-none bg-transparent"
               onChange={(e) => setUnitPrice(e.target.value)}
               value={unitPrice}
               id="unit_price"

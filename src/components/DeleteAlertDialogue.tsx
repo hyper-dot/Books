@@ -10,7 +10,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
 
 type TDeleteAlertDialogueProps = {
   button: any;
@@ -31,7 +30,7 @@ const DeleteAlertDialogue: React.FC<TDeleteAlertDialogueProps> = ({
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete this
-            record.
+            account.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -40,7 +39,7 @@ const DeleteAlertDialogue: React.FC<TDeleteAlertDialogueProps> = ({
             onClick={() => {
               onDelete(id);
             }}
-            className="bg-red-500 hover:bg-red-600"
+            className="bg-red-500 hover:bg-red-600 dark:text-white"
           >
             Delete
           </AlertDialogAction>

@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/table";
 
 import { Pencil, Trash } from "lucide-react";
+import DeleteAlertDialogue from "@/components/DeleteAlertDialogue";
+import { deleteSupplierItem } from "@/actions/accouts.action";
 
 const page = async () => {
   const prisma = new PrismaClient();
@@ -52,9 +54,15 @@ const page = async () => {
                   <button className="hover:text-blue-500">
                     <Pencil size={16} />
                   </button>
-                  <button className="hover:text-red-500">
-                    <Trash size={16} />
-                  </button>
+                  <DeleteAlertDialogue
+                    button={
+                      <button className="hover:text-red-500">
+                        <Trash size={16} />
+                      </button>
+                    }
+                    onDelete={deleteSupplierItem}
+                    id={s.supplier_id}
+                  />
                 </div>
               </TableCell>
             </TableRow>

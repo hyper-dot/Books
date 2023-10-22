@@ -82,7 +82,7 @@ export const createCustomer = async (formdata: FormData) => {
   }
 };
 
-// Delete Customer ID
+// Delete Customer
 export const deleteCustomerItem = async (id: number) => {
   if (!id) return { success: false, message: "Missing id of customer" };
   try {
@@ -93,6 +93,23 @@ export const deleteCustomerItem = async (id: number) => {
     });
     revalidatePath("/customers");
     return { success: true, message: "Customer deleted successfully" };
+  } catch (err) {
+    console.error(err);
+    return { success: false, message: "Internal server error" };
+  }
+};
+
+// Delete Supplier
+export const deleteSupplierItem = async (id: number) => {
+  if (!id) return { success: false, message: "Missing id of supplier" };
+  try {
+    await prisma.suppliers.delete({
+      where: {
+        supplier_id: id,
+      },
+    });
+    revalidatePath("/suppliers");
+    return { success: true, message: "Supplier deleted successfully" };
   } catch (err) {
     console.error(err);
     return { success: false, message: "Internal server error" };
