@@ -21,9 +21,7 @@ const page = async () => {
   return (
     <div className="max-w-4xl">
       <Table>
-        <TableCaption className="text-xs">
-          A list of your suppliers
-        </TableCaption>
+        <TableCaption className="text-xs">A list of your products</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>S.N.</TableHead>

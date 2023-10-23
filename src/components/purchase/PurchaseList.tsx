@@ -58,7 +58,7 @@ const PurchaseList: React.FC<TPurchaseListProps> = ({
     const newTotalPrice = productList.reduce(
       (total: string, product: cartProduct) => {
         const totalPriceForProduct =
-          parseInt(product.productQty) * parseFloat(product.productUnitPrice);
+          Number(product.productQty) * Number(product.productUnitPrice);
         return total + totalPriceForProduct;
       },
       0,
@@ -86,7 +86,7 @@ const PurchaseList: React.FC<TPurchaseListProps> = ({
             <option
               className="dark:bg-primary-foreground"
               key={p.item_id}
-              value={p.item_id}
+              value={p.item_id.toString()}
             >
               {p.item_name}
             </option>
@@ -151,7 +151,7 @@ const PurchaseList: React.FC<TPurchaseListProps> = ({
                 <TableCell>
                   {products.find(
                     (product: productSchemaType) =>
-                      product.item_id === parseInt(p.productID),
+                      product.item_id === Number(p.productID),
                   )?.item_name ?? "Product not found"}
                 </TableCell>
                 <TableCell>{p.productQty}</TableCell>
@@ -160,7 +160,7 @@ const PurchaseList: React.FC<TPurchaseListProps> = ({
                 </TableCell>
 
                 <TableCell className="text-right">
-                  Rs. {parseInt(p.productQty) * parseInt(p.productUnitPrice)}
+                  Rs. {Number(p.productQty) * Number(p.productUnitPrice)}
                 </TableCell>
                 <TableCell className="flex justify-end">
                   <button

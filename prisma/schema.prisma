@@ -11,26 +11,26 @@ datasource db {
 }
 
 model Item {
-  item_id   BigInt                @id @default(autoincrement())
+  item_id   Int  @id @default(autoincrement())               
   item_name String
-  stock     Int?                  @default(0)
+  stock     Int                  @default(0)
   purchases PurchaseTransaction[]
 }
 
 model PurchaseTransaction {
-  transaction_item_id BigInt   @id @default(autoincrement())
+  transaction_item_id Int   @id @default(autoincrement())
   qty                 Int
   unit_price          Int
-  item_id             BigInt   @unique
-  purchase_id         BigInt   @unique
+  item_id             Int   
+  purchase_id         Int   
   item                Item     @relation(fields: [item_id], references: [item_id])
   purchase            Purchase @relation(fields: [purchase_id], references: [purchase_id])
 }
 
 model Purchase {
-  purchase_id     BigInt                @id @default(autoincrement())
+  purchase_id     Int                @id @default(autoincrement())
   purchase_date   DateTime              @default(now())
-  supplier_id     BigInt
+  supplier_id     Int
   total_amount    Float
   discount        Float
   partial_payment Float?
@@ -41,7 +41,7 @@ model Purchase {
 }
 
 model Supplier {
-  supplier_id    BigInt     @id @default(autoincrement())
+  supplier_id    Int     @id @default(autoincrement())
   supplier_name  String     @unique
   contact_no     String
   amount_payable Float
@@ -51,7 +51,7 @@ model Supplier {
 }
 
 model Customer {
-  customer_id       BigInt @id @default(autoincrement())
+  customer_id       Int @id @default(autoincrement())
   customer_name     String @unique
   contact_no        String
   amount_receivable Float
@@ -61,9 +61,9 @@ model Customer {
 }
 
 model Sale {
-  sales_id      BigInt   @id @default(autoincrement())
+  sales_id      Int   @id @default(autoincrement())
   sales_date    DateTime @default(now())
-  customer_id   BigInt
+  customer_id   Int
   total_amount  Float
   discount      Float
   total_revenue Float
@@ -72,7 +72,7 @@ model Sale {
 }
 
 model CashAccount {
-  transaction_id   BigInt   @id @default(autoincrement())
+  transaction_id   Int   @id @default(autoincrement())
   transaction_date DateTime @default(now())
   description      String
   amount           Float

@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import { BookText } from "lucide-react";
-import ThemeToggleButton from "./ThemeToggleButton";
 
 const SideNav = () => {
   return (
@@ -13,13 +12,13 @@ const SideNav = () => {
           </Link>
         </h1>
       </div>
-      <ul className="my-4 border-b p-4 flex flex-col gap-2">
+      <ul className="my-4 border-b p-4 flex flex-col gap-2 text-sm">
         <li>
           <Link href="/">Dashboard</Link>
         </li>
       </ul>
 
-      <ul className="mb-4 border-b pb-4 px-4 flex flex-col gap-2">
+      <ul className="mb-4 border-b pb-4 px-4 flex flex-col gap-2 text-sm">
         <h4 className="font-semibold ">Accounts</h4>
         <li>
           <Link href="/accounts">Go to Accounts</Link>
@@ -35,14 +34,17 @@ const SideNav = () => {
         </li>
       </ul>
 
-      <ul className="mb-4 border-b px-4 flex flex-col gap-2">
-        <h4 className="font-semibold ">Products</h4>
-        <li className="mb-4 flex flex-col gap-2">
-          <Link href="/new_products">Add Product</Link>
-          <Link href="/products">All Products</Link>
-        </li>
-      </ul>
-      <ThemeToggleButton />
+      <div className="px-4">
+        <h4 className="font-semibold mb-2">Products</h4>
+        <ul className="border-b flex flex-col gap-1 text-sm">
+          <li className="">
+            <Link href="/new_products">Add Product</Link>
+          </li>
+          <li>
+            <Link href="/products">All Products</Link>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import SideNav from "@/components/SideNav";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import ThemeToggleButton from "@/components/ThemeToggleButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className="grid grid-cols-6 container">
+            <div className="absolute right-1 top-1">
+              <ThemeToggleButton />
+            </div>
             <nav className="xl:col-span-1">
               <SideNav />
             </nav>

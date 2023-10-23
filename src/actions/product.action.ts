@@ -15,9 +15,8 @@ export const addProduct = async (formdata: FormData) => {
 
   try {
     const data = {
-      item_id: Date.now(),
       item_name: product_name as string,
-      stock: stock ? parseInt(stock as string, 10) : 0,
+      stock: stock ? Number(stock as string) : 0,
     };
 
     const product = await prisma.item.create({

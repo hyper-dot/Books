@@ -14,7 +14,7 @@ import {
 type TDeleteAlertDialogueProps = {
   button: any;
   onDelete: any;
-  id: bigint;
+  id: number;
 };
 
 const DeleteAlertDialogue: React.FC<TDeleteAlertDialogueProps> = ({

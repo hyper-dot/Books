@@ -42,10 +42,10 @@ const PurchaseForm: React.FC<TPurchaseFormProps> = ({
         action={async () => {
           const { message, success } = await addPurchaseRecord({
             productList,
-            totalAmount: totalPrice + parseInt(discount),
+            totalAmount: totalPrice + Number(discount),
             totalAmountAfterDiscount: totalPrice,
-            discount: parseInt(discount),
-            supplierId: parseInt(supplier),
+            discount: Number(discount),
+            supplierId: Number(supplier),
             purchaseType,
             date,
           });
@@ -89,7 +89,7 @@ const PurchaseForm: React.FC<TPurchaseFormProps> = ({
                 <option
                   className="dark:bg-primary-foreground"
                   key={s.supplier_id}
-                  value={s.supplier_id}
+                  value={s.supplier_id.toString()}
                 >
                   {s.supplier_name}
                 </option>
@@ -120,12 +120,7 @@ const PurchaseForm: React.FC<TPurchaseFormProps> = ({
               value={purchaseType}
               onChange={(e) => setPurchaseType(e.target.value)}
             >
-              <option
-                className="dark:bg-primary-foreground"
-                value=""
-                selected
-                disabled
-              >
+              <option className="dark:bg-primary-foreground" value="" disabled>
                 Select transaction type
               </option>
               <option className="dark:bg-primary-foreground" value="cash">

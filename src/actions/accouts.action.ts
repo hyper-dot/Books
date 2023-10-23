@@ -28,7 +28,6 @@ export const createSupplier = async (formdata: FormData) => {
     if (account_name && contact_no && vat && address) {
       const supplier = await prisma.supplier.create({
         data: {
-          supplier_id: Date.now(),
           supplier_name: account_name as string, // You can use type assertion here
           contact_no: contact_no as string,
           vat_no: vat as string,
@@ -72,7 +71,6 @@ export const createCustomer = async (formdata: FormData) => {
     if (account_name && contact_no && vat && address) {
       const customer = await prisma.customer.create({
         data: {
-          customer_id: Date.now(),
           customer_name: account_name as string, // You can use type assertion here
           contact_no: contact_no as string,
           vat_no: vat as string,
