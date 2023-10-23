@@ -31,6 +31,17 @@ export const addPurchaseRecord = async (data: TPurchaseRecordDataType) => {
     return { success: false, message: "Please specify date of transaction" };
   }
 
+  // const purchase = await prisma.purchase.create({
+  //   data: {
+  //     purchase_type: data.purchaseType,
+  //     purchase_date: data.date,
+  //     supplier_id: data.supplierId,
+  //     total_amount: data.totalAmount,
+  //     discount: data.discount,
+  //     items: data.productList,
+  //   },
+  // });
+
   console.log(data);
   return { success: true, message: "All Done !!" };
 };

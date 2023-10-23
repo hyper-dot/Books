@@ -16,7 +16,7 @@ import { deleteSupplierItem } from "@/actions/accouts.action";
 
 const page = async () => {
   const prisma = new PrismaClient();
-  const suppliers = await prisma.suppliers.findMany();
+  const suppliers = await prisma.supplier.findMany();
   await prisma.$disconnect();
   return (
     <div className="max-w-5xl">

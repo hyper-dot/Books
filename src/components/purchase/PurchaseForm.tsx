@@ -29,7 +29,7 @@ const PurchaseForm: React.FC<TPurchaseFormProps> = ({
   const [productID, setProductID] = useState("");
   const [qty, setQty] = useState("");
   const [unitPrice, setUnitPrice] = useState("");
-  const [discount, setDiscount] = useState("0");
+  const [discount, setDiscount] = useState("");
 
   const [date, setDate] = useState("");
   const [partialPayment, setPartialPayment] = useState("");
@@ -54,21 +54,21 @@ const PurchaseForm: React.FC<TPurchaseFormProps> = ({
             variant: success ? "success" : "destructive",
           });
           if (success) {
-            setTotalPrice(0);
-            setProductList([]);
-            setProductID("");
-            setQty("");
-            setUnitPrice("");
-            setDiscount("");
-            setDate("");
-            setPartialPayment("");
-            setSupplier("");
-            setPurchaseType("");
+            // setTotalPrice(0);
+            // setProductList([]);
+            // setProductID("");
+            // setQty("");
+            // setUnitPrice("");
+            // setDiscount("");
+            // setDate("");
+            // setPartialPayment("");
+            // setSupplier("");
+            // setPurchaseType("");
           }
         }}
         className="w-full"
       >
-        <h1 className="text-2xl font-semibold">Add Purchase Record</h1>
+        <h1 className="text-2xl py-4">Add Purchase Record</h1>
         <div className="flex flex-col gap-2">
           <div>
             <Label htmlFor="supplier">Supplier</Label>
@@ -104,8 +104,8 @@ const PurchaseForm: React.FC<TPurchaseFormProps> = ({
               <input
                 className="w-full focus:outline-none bg-transparent"
                 onChange={(e) => setDiscount(e.target.value)}
+                value={discount}
                 id="discount"
-                defaultValue={0}
                 name="discount"
                 type="number"
               />

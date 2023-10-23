@@ -69,7 +69,7 @@ const PurchaseList: React.FC<TPurchaseListProps> = ({
 
   return (
     <div className="w-full flex flex-col">
-      <h1 className="text-2xl font-semibold">Products List</h1>
+      <h1 className="text-2xl py-4">Products List</h1>
       <div>
         <Label htmlFor="product">Product</Label>
         <select

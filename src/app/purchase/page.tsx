@@ -4,7 +4,7 @@ import PurchaseForm from "@/components/purchase/PurchaseForm";
 
 const page = async () => {
   const prisma = new PrismaClient();
-  const suppliers = await prisma.suppliers.findMany();
+  const suppliers = await prisma.supplier.findMany();
   const products = await prisma.item.findMany();
   await prisma.$disconnect();
 

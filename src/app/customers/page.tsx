@@ -15,7 +15,7 @@ import { deleteCustomerItem } from "@/actions/accouts.action";
 
 const page = async () => {
   const prisma = new PrismaClient();
-  const customers = await prisma.customers.findMany();
+  const customers = await prisma.customer.findMany();
   await prisma.$disconnect();
   return (
     <div className="max-w-5xl">
