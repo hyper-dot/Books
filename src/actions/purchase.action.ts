@@ -120,6 +120,7 @@ const createPurchaseTransaction = async (
 // Finds item by id
 const findItemByID = async (table: string, id: number) => {
   try {
+    // @ts-expect-error
     const item = await prisma[table].findUnique({
       where: {
         item_id: id,
