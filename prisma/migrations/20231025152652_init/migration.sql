@@ -12,8 +12,8 @@ CREATE TABLE "PurchaseTransaction" (
     "unit_price" INTEGER NOT NULL,
     "item_id" INTEGER NOT NULL,
     "purchase_id" INTEGER NOT NULL,
-    CONSTRAINT "PurchaseTransaction_item_id_fkey" FOREIGN KEY ("item_id") REFERENCES "Item" ("item_id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "PurchaseTransaction_purchase_id_fkey" FOREIGN KEY ("purchase_id") REFERENCES "Purchase" ("purchase_id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "PurchaseTransaction_item_id_fkey" FOREIGN KEY ("item_id") REFERENCES "Item" ("item_id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "PurchaseTransaction_purchase_id_fkey" FOREIGN KEY ("purchase_id") REFERENCES "Purchase" ("purchase_id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -26,7 +26,7 @@ CREATE TABLE "Purchase" (
     "partial_payment" REAL,
     "total_cost" REAL NOT NULL,
     "purchase_type" TEXT NOT NULL,
-    CONSTRAINT "Purchase_supplier_id_fkey" FOREIGN KEY ("supplier_id") REFERENCES "Supplier" ("supplier_id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Purchase_supplier_id_fkey" FOREIGN KEY ("supplier_id") REFERENCES "Supplier" ("supplier_id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -67,7 +67,8 @@ CREATE TABLE "CashAccount" (
     "transaction_date" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "description" TEXT NOT NULL,
     "amount" REAL NOT NULL,
-    "transaction_type" TEXT NOT NULL
+    "debit" REAL NOT NULL,
+    "credit" REAL NOT NULL
 );
 
 -- CreateIndex
