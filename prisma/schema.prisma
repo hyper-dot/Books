@@ -23,8 +23,8 @@ model PurchaseTransaction {
   unit_price          Int
   item_id             Int   
   purchase_id         Int   
-  item                Item     @relation(fields: [item_id], references: [item_id])
-  purchase            Purchase @relation(fields: [purchase_id], references: [purchase_id])
+  item                Item     @relation(fields: [item_id], references: [item_id], onDelete: Cascade, onUpdate: Cascade)
+  purchase            Purchase @relation(fields: [purchase_id], references: [purchase_id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Purchase {
@@ -36,7 +36,7 @@ model Purchase {
   partial_payment Float?
   total_cost      Float
   purchase_type   String
-  supplier        Supplier              @relation(fields: [supplier_id], references: [supplier_id])
+  supplier        Supplier @relation(fields: [supplier_id], references: [supplier_id], onDelete: Cascade, onUpdate: Cascade)
   transactions    PurchaseTransaction[]
 }
 
@@ -76,5 +76,6 @@ model CashAccount {
   transaction_date DateTime @default(now())
   description      String
   amount           Float
-  transaction_type String
+  debit            Float
+  credit           Float
 }

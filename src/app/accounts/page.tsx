@@ -3,7 +3,7 @@ import React from "react";
 import { useRef } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
-import { createAccount } from "@/actions/accouts.action";
+import { createAccount } from "@/actions/accounts/createAccount";
 
 import SubmitButton from "@/components/SubmitButton";
 import { Input } from "@/components/ui/input";

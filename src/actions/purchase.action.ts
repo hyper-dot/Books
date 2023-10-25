@@ -81,7 +81,6 @@ export const addPurchaseRecord = async (formData: TPurchaseRecordDataType) => {
           stock: oldItem.stock + productRecord.qty,
         },
       });
-      console.log(newItem);
     }
   } catch (err) {
     console.log(err);

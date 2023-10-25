@@ -54,16 +54,16 @@ const PurchaseForm: React.FC<TPurchaseFormProps> = ({
             variant: success ? "success" : "destructive",
           });
           if (success) {
-            // setTotalPrice(0);
-            // setProductList([]);
-            // setProductID("");
-            // setQty("");
-            // setUnitPrice("");
-            // setDiscount("");
-            // setDate("");
-            // setPartialPayment("");
-            // setSupplier("");
-            // setPurchaseType("");
+            setTotalPrice(0);
+            setProductList([]);
+            setProductID("");
+            setQty("");
+            setUnitPrice("");
+            setDiscount("");
+            setDate("");
+            setPartialPayment("");
+            setSupplier("");
+            setPurchaseType("");
           }
         }}
         className="w-full"
