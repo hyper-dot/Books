@@ -14,7 +14,7 @@ import {
 
 const page = async () => {
   const cashAccounts = await prisma.cashAccount.findMany();
-  console.log(cashAccounts);
+  await prisma.$disconnect();
   return (
     <div className="max-w-5xl">
       <Table>
