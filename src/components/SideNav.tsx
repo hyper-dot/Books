@@ -10,15 +10,17 @@ import {
   Wallet,
 } from "lucide-react";
 import { UserCircle2, ShoppingBag } from "lucide-react";
+import ThemeToggleButton from "./ThemeToggleButton";
 
 const SideNav = () => {
   return (
-    <div className="h-screen border-r px-4 hidden xl:block fixed">
+    <div className="min-h-screen h-full border-r px-4 hidden xl:block w-full sticky">
       <div>
-        <h1 className="font-semibold text-3xl px-1">
+        <h1 className="font-semibold text-3xl px-1 py-2 flex justify-between border-b">
           <Link className="flex gap-2 items-center" href="/">
             <BookText /> Books
           </Link>
+          <ThemeToggleButton />
         </h1>
       </div>
       <ul className="my-4 border-b p-4 flex flex-col gap-2 text-sm">

@@ -28,13 +28,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className="grid grid-cols-10 container">
-            <div className="absolute right-1 top-1">
-              <ThemeToggleButton />
-            </div>
-            <nav className="xl:col-span-2">
+            <nav className="col-span-0 md:col-span-2">
               <SideNav />
             </nav>
-            <div className="col-span-7">{children}</div>
+            <div className="col-span-10 md:col-span-7 pl-4">{children}</div>
             <Toaster />
           </main>
         </ThemeProvider>

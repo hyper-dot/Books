@@ -1,5 +1,6 @@
 "use server";
 
+import { prisma } from "@/lib/prisma";
 import { PrismaClient } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
@@ -27,5 +28,17 @@ export const addProduct = async (formdata: FormData) => {
   } catch (err) {
     console.log(err);
     return { success: false, message: "Error adding the product." };
+  }
+};
+
+export const getAllProducts = async () => {
+  try {
+    const products = await prisma.item.findMany();
+    return products;
+  } catch (e) {
+    console.log(e);
+    return null;
+  } finally {
+    await prisma.$disconnect();
   }
 };
