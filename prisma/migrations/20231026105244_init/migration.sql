@@ -65,10 +65,8 @@ CREATE TABLE "Sale" (
 CREATE TABLE "CashAccount" (
     "transaction_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "transaction_date" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "description" TEXT NOT NULL,
     "amount" REAL NOT NULL,
-    "debit" REAL NOT NULL,
-    "credit" REAL NOT NULL
+    "type" TEXT NOT NULL
 );
 
 -- CreateIndex

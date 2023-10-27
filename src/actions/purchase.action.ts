@@ -1,6 +1,7 @@
 "use server";
 import { prisma } from "@/lib/prisma";
 import { cartProduct } from "@/constants/products/types";
+import { revalidatePath } from "next/cache";
 
 type TPurchaseRecordDataType = {
   productList: cartProduct[];
@@ -52,6 +53,19 @@ export const addPurchaseRecord = async (formData: TPurchaseRecordDataType) => {
         purchase_type: purchaseType,
       },
     });
+
+    // Add cash transaction
+    if (purchaseType === "cash") {
+      const res = await addCashTransaction(
+        totalAmountAfterDiscount,
+        "out",
+        new Date(date).toISOString(),
+      );
+      if (!res) {
+        return { success: false, message: "Couldn't record cash transaction" };
+      }
+      revalidatePath("/cash");
+    }
 
     // Add record of each product
     for (let singleProduct of formData.productList) {
@@ -132,5 +146,26 @@ const findItemByID = async (table: string, id: number) => {
     return null;
   } finally {
     await prisma.$disconnect();
+  }
+};
+
+//add cash transaction
+const addCashTransaction = async (
+  amount: number,
+  type: string,
+  date: string,
+) => {
+  try {
+    const cashTransaction = await prisma.cashAccount.create({
+      data: {
+        amount: amount,
+        transaction_date: date,
+        type: type as string,
+      },
+    });
+    return cashTransaction;
+  } catch (err) {
+    console.log(err);
+    return null;
   }
 };

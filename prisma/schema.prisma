@@ -29,7 +29,7 @@ model PurchaseTransaction {
 
 model Purchase {
   purchase_id     Int                @id @default(autoincrement())
-  purchase_date   DateTime              @default(now())
+  purchase_date   DateTime           @default(now())
   supplier_id     Int
   total_amount    Float
   discount        Float
@@ -74,8 +74,9 @@ model Sale {
 model CashAccount {
   transaction_id   Int   @id @default(autoincrement())
   transaction_date DateTime @default(now())
-  description      String
   amount           Float
-  debit            Float
-  credit           Float
+  type             String
 }
+
+
+
