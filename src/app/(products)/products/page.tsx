@@ -18,6 +18,7 @@ import { Pencil, Trash } from "lucide-react";
 import { z } from "zod";
 import { productSchema } from "@/constants/products/types";
 import TableSkeleton from "@/components/TableSkeleton";
+import EditProduct from "@/components/editProduct";
 
 type Product = z.infer<typeof productSchema>;
 
@@ -69,7 +70,12 @@ const page = () => {
                 <TableCell>
                   <div className="flex gap-4 items-center">
                     <button className="hover:text-blue-500">
-                      <Pencil size={16} />
+                      <EditProduct
+                        button={<Pencil size={16} />}
+                        name={p.item_name}
+                        stock={p.stock ? p.stock : 0}
+                        id={p.item_id}
+                      />
                     </button>
                     <button className="hover:text-red-500">
                       <Trash size={16} />

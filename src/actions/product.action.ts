@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { PrismaClient } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
+// Add new product
 export const addProduct = async (formdata: FormData) => {
   const prisma = new PrismaClient();
 
@@ -23,7 +24,6 @@ export const addProduct = async (formdata: FormData) => {
     const product = await prisma.item.create({
       data: data,
     });
-    revalidatePath("/products");
     return { success: true, message: "Product added successfully." };
   } catch (err) {
     console.log(err);
@@ -31,6 +31,7 @@ export const addProduct = async (formdata: FormData) => {
   }
 };
 
+// Query all products
 export const getAllProducts = async () => {
   try {
     const products = await prisma.item.findMany();
@@ -40,5 +41,30 @@ export const getAllProducts = async () => {
     return null;
   } finally {
     await prisma.$disconnect();
+  }
+};
+
+// Edit Product
+export const editProductById = async ({
+  id,
+  name,
+  stock,
+}: {
+  id: number;
+  name: string;
+  stock: number;
+}) => {
+  try {
+    await prisma.item.update({
+      where: { item_id: id },
+      data: {
+        item_name: name,
+        stock: stock,
+      },
+    });
+    return { success: true, message: "Product updated successfully" };
+  } catch (err) {
+    console.log(err);
+    return { success: false, message: "Couldn't update product" };
   }
 };
