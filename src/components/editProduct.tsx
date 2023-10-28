@@ -32,18 +32,6 @@ const EditProduct: React.FC<TEditProductProps> = ({
   const [pname, setPname] = useState(name);
   const [pstock, setPstock] = useState(stock);
 
-  async function updateProduct() {
-    const { success, message } = await editProductById({
-      id,
-      name: pname,
-      stock: pstock,
-    });
-    toast({
-      title: message,
-      variant: success ? "success" : "destructive",
-    });
-  }
-
   return (
     <Dialog>
       <DialogTrigger asChild>{button}</DialogTrigger>
@@ -76,7 +64,20 @@ const EditProduct: React.FC<TEditProductProps> = ({
           />
         </div>
         <DialogFooter>
-          <Button onClick={() => updateProduct()} type="submit">
+          <Button
+            onClick={async () => {
+              const { success, message } = await editProductById({
+                id,
+                name: pname,
+                stock: pstock,
+              });
+              toast({
+                title: message,
+                variant: success ? "success" : "destructive",
+              });
+            }}
+            type="submit"
+          >
             Update
           </Button>
         </DialogFooter>

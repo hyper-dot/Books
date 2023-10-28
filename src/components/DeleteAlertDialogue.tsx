@@ -10,10 +10,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { toast } from "./ui/use-toast";
 
 type TDeleteAlertDialogueProps = {
   button: any;
-  onDelete: any;
+  onDelete: (id: number) => any;
   id: number;
 };
 
@@ -36,8 +37,12 @@ const DeleteAlertDialogue: React.FC<TDeleteAlertDialogueProps> = ({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
-            onClick={() => {
-              onDelete(id);
+            onClick={async () => {
+              const { success, message } = await onDelete(id);
+              toast({
+                title: message,
+                variant: success ? "success" : "destructive",
+              });
             }}
             className="bg-red-500 hover:bg-red-600 dark:text-white"
           >
