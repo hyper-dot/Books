@@ -61,7 +61,7 @@ export const createSupplier = async (data: TData) => {
 };
 
 // Delete Supplier
-export const deleteSupplierItem = async (id: number) => {
+export const deleteSupplierItem = async (id: bigint) => {
   if (!id) return { success: false, message: "Missing id of supplier" };
   try {
     await prisma.supplier.delete({

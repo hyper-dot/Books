@@ -30,7 +30,7 @@ model PurchaseTransaction {
 model Purchase {
   purchase_id     Int                @id @default(autoincrement())
   purchase_date   DateTime           @default(now())
-  supplier_id     BigInt @db.UnsignedBigInt
+  supplier_id     BigInt             @db.UnsignedBigInt
   total_amount    Float
   discount        Float
   partial_payment Float?

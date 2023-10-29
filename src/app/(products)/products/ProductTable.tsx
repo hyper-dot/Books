@@ -17,7 +17,6 @@ import { deleteProductById } from "@/actions/product.action";
 import { Pencil, Trash } from "lucide-react";
 import { z } from "zod";
 import { productSchema } from "@/constants/products/types";
-import TableSkeleton from "@/components/TableSkeleton";
 import EditProduct from "@/components/editProduct";
 import DeleteAlertDialogue from "@/components/DeleteAlertDialogue";
 

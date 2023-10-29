@@ -8,6 +8,7 @@ import {
   Truck,
   Users2,
   Wallet,
+  Tag,
 } from "lucide-react";
 import { UserCircle2, ShoppingBag } from "lucide-react";
 import ThemeToggleButton from "./ThemeToggleButton";
@@ -43,6 +44,12 @@ const SideNav = () => {
           <Link href="/purchase" className="flex gap-1 items-center">
             <ShoppingBag size={20} />
             Add Purchase Record
+          </Link>
+        </li>
+        <li>
+          <Link href="/sales" className="flex gap-1 items-center">
+            <Tag size={20} />
+            Add Sales Record
           </Link>
         </li>
         <li>

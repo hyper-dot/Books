@@ -14,8 +14,8 @@ import { toast } from "./ui/use-toast";
 
 type TDeleteAlertDialogueProps = {
   button: any;
-  onDelete: (id: number) => any;
-  id: number;
+  onDelete: (id: bigint) => any;
+  id: bigint;
 };
 
 const DeleteAlertDialogue: React.FC<TDeleteAlertDialogueProps> = ({
