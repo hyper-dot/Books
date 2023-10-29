@@ -12,7 +12,7 @@ import {
 
 import { Pencil, Trash } from "lucide-react";
 import DeleteAlertDialogue from "@/components/DeleteAlertDialogue";
-import { deleteSupplierItem } from "@/actions/accouts.action";
+import { deleteSupplierItem } from "@/actions/accounts/supplier";
 
 const page = async () => {
   const prisma = new PrismaClient();

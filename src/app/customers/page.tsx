@@ -11,14 +11,15 @@ import {
 } from "@/components/ui/table";
 import { Pencil, Trash } from "lucide-react";
 import DeleteAlertDialogue from "@/components/DeleteAlertDialogue";
-import { deleteCustomerItem } from "@/actions/accouts.action";
+import { deleteCustomerItem } from "@/actions/accounts/customer";
 import TableSkeleton from "@/components/TableSkeleton";
-import { getAllCustomers } from "@/actions/accounts/allAccounts";
+import { getAllCustomers } from "@/actions/accounts/customer";
 import { customerSchema } from "@/constants/customers/types";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 
 const page = () => {
+  const [render, reRender] = useState(false);
   const [customers, setCustomers] = useState<
     z.infer<typeof customerSchema>[] | null
   >(null);
@@ -26,7 +27,7 @@ const page = () => {
 
   useEffect(() => {
     getAllCustomers().then((data) => setCustomers(data));
-  }, []);
+  }, [render]);
 
   const filteredCustomer = customers?.filter((customer) =>
     customer.customer_name.toLowerCase().includes(query.toLowerCase()),
@@ -82,6 +83,8 @@ const page = () => {
                           <Trash size={16} />
                         </button>
                       }
+                      render={render}
+                      reRender={reRender}
                       onDelete={deleteCustomerItem}
                       id={c.customer_id}
                     />

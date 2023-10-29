@@ -24,10 +24,13 @@ export const addProduct = async (formdata: FormData) => {
     const product = await prisma.item.create({
       data: data,
     });
+    revalidatePath("/products");
     return { success: true, message: "Product added successfully." };
   } catch (err) {
     console.log(err);
     return { success: false, message: "Error adding the product." };
+  } finally {
+    await prisma.$disconnect();
   }
 };
 
@@ -62,9 +65,30 @@ export const editProductById = async ({
         stock: stock,
       },
     });
+    revalidatePath("/products");
     return { success: true, message: "Product updated successfully" };
   } catch (err) {
     console.log(err);
     return { success: false, message: "Couldn't update product" };
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+// Delete product
+export const deleteProductById = async (id: number) => {
+  try {
+    await prisma.item.delete({
+      where: {
+        item_id: id,
+      },
+    });
+    revalidatePath("/products");
+    return { success: true, message: "Product deleted successfully" };
+  } catch (err) {
+    console.log(err);
+    return { success: false, message: "Couldn't delete product" };
+  } finally {
+    await prisma.$disconnect();
   }
 };

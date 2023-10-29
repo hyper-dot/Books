@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -30,7 +30,7 @@ model PurchaseTransaction {
 model Purchase {
   purchase_id     Int                @id @default(autoincrement())
   purchase_date   DateTime           @default(now())
-  supplier_id     Int
+  supplier_id     BigInt @db.UnsignedBigInt
   total_amount    Float
   discount        Float
   partial_payment Float?
@@ -41,7 +41,7 @@ model Purchase {
 }
 
 model Supplier {
-  supplier_id    Int     @id @default(autoincrement())
+  supplier_id        BigInt   @id @db.UnsignedBigInt @default(autoincrement())
   supplier_name  String     @unique
   contact_no     String
   amount_payable Float
@@ -51,7 +51,7 @@ model Supplier {
 }
 
 model Customer {
-  customer_id       Int @id @default(autoincrement())
+  customer_id        BigInt   @id @db.UnsignedBigInt @default(autoincrement())
   customer_name     String @unique
   contact_no        String
   amount_receivable Float
@@ -63,7 +63,7 @@ model Customer {
 model Sale {
   sales_id      Int   @id @default(autoincrement())
   sales_date    DateTime @default(now())
-  customer_id   Int
+  customer_id   BigInt @db.UnsignedBigInt
   total_amount  Float
   discount      Float
   total_revenue Float
