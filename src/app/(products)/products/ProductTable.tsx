@@ -15,12 +15,10 @@ import { Input } from "@/components/ui/input";
 import { deleteProductById } from "@/actions/product.action";
 
 import { Pencil, Trash } from "lucide-react";
-import { z } from "zod";
-import { productSchema } from "@/constants/products/types";
+import { Product } from "@/constants/products/types";
 import EditProduct from "@/components/editProduct";
 import DeleteAlertDialogue from "@/components/DeleteAlertDialogue";
-
-type Product = z.infer<typeof productSchema>;
+import Image from "next/image";
 
 const ProductTable = ({ data }: { data: Product[] }) => {
   const [query, setQuery] = useState("");
@@ -49,6 +47,7 @@ const ProductTable = ({ data }: { data: Product[] }) => {
         <TableHeader>
           <TableRow>
             <TableHead>S.N.</TableHead>
+            <TableHead></TableHead>
             <TableHead>Product Name</TableHead>
             <TableHead>Stock</TableHead>
             <TableHead>Action</TableHead>
@@ -58,6 +57,15 @@ const ProductTable = ({ data }: { data: Product[] }) => {
           {filteredProducts.map((p, index) => (
             <TableRow key={p.item_id}>
               <TableCell>{index + 1}</TableCell>
+              <TableCell>
+                <Image
+                  className=""
+                  height={50}
+                  width={50}
+                  alt="product"
+                  src="https://img.freepik.com/premium-photo/futuristic-gadgets-showcase-lineup-sleek-modern-technological-devices_977107-682.jpg"
+                />
+              </TableCell>
               <TableCell>{p.item_name}</TableCell>
               <TableCell>{p.stock}</TableCell>
               <TableCell>
