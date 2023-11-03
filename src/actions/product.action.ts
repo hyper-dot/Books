@@ -76,11 +76,11 @@ export const editProductById = async ({
 };
 
 // Delete product
-export const deleteProductById = async (id: number) => {
+export const deleteProductById = async (id: bigint) => {
   try {
     await prisma.item.delete({
       where: {
-        item_id: id,
+        item_id: Number(id),
       },
     });
     revalidatePath("/products");

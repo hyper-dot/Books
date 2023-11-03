@@ -75,7 +75,7 @@ const ProductTable = ({ data }: { data: Product[] }) => {
                       button={<Pencil size={16} />}
                       name={p.item_name}
                       stock={p.stock ? p.stock : 0}
-                      id={p.item_id}
+                      id={Number(p.item_id)}
                     />
                   </button>
                   <DeleteAlertDialogue
@@ -85,7 +85,7 @@ const ProductTable = ({ data }: { data: Product[] }) => {
                       </button>
                     }
                     onDelete={deleteProductById}
-                    id={p.item_id}
+                    id={Number(p.item_id)}
                   />
                 </div>
               </TableCell>
