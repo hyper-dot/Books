@@ -3,7 +3,9 @@ import ProductTable from "./ProductTable";
 
 const page = async () => {
   const data = await prisma.item.findMany();
-  return <ProductTable data={data} />;
+  if (data) {
+    return <ProductTable data={data} />;
+  }
 };
 
 export default page;

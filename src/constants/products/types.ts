@@ -8,7 +8,7 @@ export type cartProduct = {
 
 export const productSchema = z.object({
   stock: z.number().nullable(),
-  item_id: z.bigint(),
+  item_id: z.number(),
   item_name: z.string(),
 });
 export type Product = z.infer<typeof productSchema>;

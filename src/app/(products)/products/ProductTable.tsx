@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import {
   Table,
@@ -15,10 +15,11 @@ import { Input } from "@/components/ui/input";
 import { deleteProductById } from "@/actions/product.action";
 
 import { Pencil, Trash } from "lucide-react";
-import { Product } from "@/constants/products/types";
 import EditProduct from "@/components/editProduct";
 import DeleteAlertDialogue from "@/components/DeleteAlertDialogue";
 import Image from "next/image";
+
+type Product = { stock: number; item_id: number; item_name: string };
 
 const ProductTable = ({ data }: { data: Product[] }) => {
   const [query, setQuery] = useState("");

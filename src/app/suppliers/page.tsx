@@ -1,18 +1,5 @@
 import React from "react";
 import { PrismaClient } from "@prisma/client";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
-import { Pencil, Trash } from "lucide-react";
-import DeleteAlertDialogue from "@/components/DeleteAlertDialogue";
-import { deleteSupplierItem } from "@/actions/accounts/supplier";
 import SuppliersTable from "./SuppliersTable";
 
 const page = async () => {
