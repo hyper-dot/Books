@@ -12,6 +12,12 @@ import {
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+
 import { deleteProductById } from "@/actions/product.action";
 
 import { Pencil, Trash } from "lucide-react";
@@ -48,7 +54,6 @@ const ProductTable = ({ data }: { data: Product[] }) => {
         <TableHeader>
           <TableRow>
             <TableHead>S.N.</TableHead>
-            <TableHead></TableHead>
             <TableHead>Product Name</TableHead>
             <TableHead>Stock</TableHead>
             <TableHead>Action</TableHead>
@@ -59,15 +64,30 @@ const ProductTable = ({ data }: { data: Product[] }) => {
             <TableRow key={p.item_id}>
               <TableCell>{index + 1}</TableCell>
               <TableCell>
-                <Image
-                  className=""
-                  height={50}
-                  width={50}
-                  alt="product"
-                  src="https://img.freepik.com/premium-photo/futuristic-gadgets-showcase-lineup-sleek-modern-technological-devices_977107-682.jpg"
-                />
+                <HoverCard>
+                  <HoverCardTrigger>{p.item_name}</HoverCardTrigger>
+                  <HoverCardContent className="">
+                    <div className="flex gap-4 ">
+                      <div>
+                        <h3 className="text-lg font-semibold">{p.item_name}</h3>
+                        <p className="text-xs">
+                          item Dessc Download the perfect products pictures.
+                          Find over 100+ of the best free products images. Free
+                          for commercial use ✓ No attribution required
+                        </p>
+                      </div>
+                      <div>
+                        <Image
+                          width={500}
+                          height={500}
+                          src="https://img.freepik.com/premium-psd/shoes-social-media-instagram-post-template_505751-2681.jpg?w=740"
+                          alt="product"
+                        />
+                      </div>
+                    </div>
+                  </HoverCardContent>
+                </HoverCard>
               </TableCell>
-              <TableCell>{p.item_name}</TableCell>
               <TableCell>{p.stock}</TableCell>
               <TableCell>
                 <div className="flex gap-4 items-center">
