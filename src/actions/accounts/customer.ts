@@ -49,7 +49,7 @@ export const createCustomer = async (data: TData) => {
 };
 
 // Delete Customer
-export const deleteCustomerItem = async (id: bigint) => {
+export const deleteCustomerItem = async (id: number) => {
   if (!id) return { success: false, message: "Missing id of customer" };
   try {
     await prisma.customer.delete({

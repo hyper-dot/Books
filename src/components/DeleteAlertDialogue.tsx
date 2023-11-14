@@ -14,7 +14,7 @@ import { toast } from "./ui/use-toast";
 
 type TDeleteAlertDialogueProps = {
   button: any;
-  onDelete: (id: bigint) => Promise<{ success: boolean; message: string }>;
+  onDelete: (id: number) => Promise<{ success: boolean; message: string }>;
   id: number;
 };
 
@@ -38,7 +38,7 @@ const DeleteAlertDialogue: React.FC<TDeleteAlertDialogueProps> = ({
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
             onClick={async () => {
-              const { success, message } = await onDelete(BigInt(id));
+              const { success, message } = await onDelete(id);
               toast({
                 title: message,
                 variant: success ? "success" : "destructive",

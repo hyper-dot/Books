@@ -76,7 +76,7 @@ export const editProductById = async ({
 };
 
 // Delete product
-export const deleteProductById = async (id: bigint) => {
+export const deleteProductById = async (id: number) => {
   try {
     await prisma.item.delete({
       where: {
