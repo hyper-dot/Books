@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = env("NODE_ENV")=="dev" ? "sqlite" : "postgres"
+  provider = "postgres"
   url = env("DATABASE_URL")
 }
 
