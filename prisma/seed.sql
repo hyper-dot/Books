@@ -1,7 +1,6 @@
-
+-- Queries compatible with mariadb and mysql
 -- Insert 20 electronic items
-INSERT INTO "Item" (item_name, stock)
-VALUES
+INSERT INTO Item (item_name, stock) VALUES
   ('Smartphone', 100),
   ('Laptop', 50),
   ('Tablet', 30),
@@ -23,9 +22,8 @@ VALUES
   ('Virtual Reality Headset', 30),
   ('Action Camera', 25);
 
-
 -- Insert 20 suppliers
-INSERT INTO "Supplier" (supplier_name, contact_no, amount_payable, address, vat_no)
+INSERT INTO Supplier (supplier_name, contact_no, amount_payable, address, vat_no)
 VALUES
   ('ACME Electronics', '123-456-7890', 5000.00, '123 Main St, Anytown, USA', '1234567890'),
   ('Tech World Inc.', '987-654-3210', 3000.00, '456 Elm St, Othertown, USA', '9876543210'),
@@ -50,7 +48,7 @@ VALUES
 
 
 -- Insert 20 customers
-INSERT INTO "Customer" (customer_name, contact_no, amount_receivable, address, vat_no)
+INSERT INTO Customer (customer_name, contact_no, amount_receivable, address, vat_no)
 VALUES
   ('John Doe', '123-456-7890', 1500.00, '123 Main St, Anytown, USA', '1234567890'),
   ('Jane Smith', '987-654-3210', 2200.00, '456 Elm St, Othertown, USA', '9876543210'),
