@@ -8,7 +8,8 @@ const envVariables = z.object({
   JWT_SECRET: z.string(),
 });
 
-envVariables.parse(process.env);
+const envSchema = envVariables.parse(process.env);
+console.log(envSchema);
 
 declare global {
   namespace NodeJS {
