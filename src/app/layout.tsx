@@ -4,6 +4,7 @@ import ProgressBar from "@/components/ProgressBar.client";
 
 import { Tilt_Neon } from "next/font/google";
 import { QueryProvider } from "@/Provider/QueryProvider";
+import { ThemeProvider } from "@/Provider/ThemeProvider";
 const tilt = Tilt_Neon({ subsets: ["latin"], weight: ["400"] });
 
 export const metadata: Metadata = {
@@ -18,11 +19,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={tilt.className}>
-        <ProgressBar />
-        <main className="2xl:container">
-          <QueryProvider>{children}</QueryProvider>
-        </main>
+      <body suppressHydrationWarning className={tilt.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ProgressBar />
+          <main className="2xl:container">
+            <QueryProvider>{children}</QueryProvider>
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );

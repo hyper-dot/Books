@@ -5,7 +5,7 @@ const SideNav = () => {
   return (
     <div className="bg-secondary pt-2 pl-2 md:min-w-[250px] h-screen">
       <div className="flex gap-2 items-center">
-        <img src="/logo.svg" alt="" className="h-12 w-12" />
+        <img src="/logo.svg" alt="" height={25} width={25} />
         <span className="font-bold text-2xl">Books</span>
       </div>
 
