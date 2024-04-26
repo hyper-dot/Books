@@ -36,9 +36,14 @@ export async function logout() {
 }
 
 export async function getSession() {
-  const session = cookies().get("session")?.value;
-  if (!session) return null;
-  return await decrypt(session);
+  try {
+    const session = cookies().get("session")?.value;
+    if (!session) return null;
+    return await decrypt(session);
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
 }
 
 export async function updateSession(request: NextRequest) {
@@ -47,12 +52,14 @@ export async function updateSession(request: NextRequest) {
 
   const parsed = await decrypt(session);
 
-  parsed.expires = new Date(Date.now() + 10 * 1000);
+  parsed.expires = new Date(Date.now() + 20 * 1000);
   const res = NextResponse.next();
+
+  const encryptedSession = await encrypt(parsed);
 
   res.cookies.set({
     name: "session",
-    value: await encrypt(parsed),
+    value: encryptedSession,
     httpOnly: true,
     expires: parsed.expires,
   });

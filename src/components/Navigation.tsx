@@ -15,7 +15,7 @@ const NavBar = () => {
     <div className="flex py-4 items-center justify-between px-4">
       <div className="flex gap-2 items-center">
         <img src="/logo.svg" alt="" className="h-12 w-12" />
-        <span className="font-bold text-2xl">Accounts</span>
+        <span className="font-bold text-2xl">Books</span>
       </div>
       <ul className="flex gap-3 font-medium">
         {menus.map((m, idx) => (

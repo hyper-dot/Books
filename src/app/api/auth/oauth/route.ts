@@ -8,7 +8,7 @@ export const POST = async () => {
   const oauthClient = new OAuth2Client(
     process.env.CLIENT_ID,
     process.env.CLIENT_SECRET,
-    process.env.REDIRECT_URL
+    process.env.REDIRECT_URL,
   );
 
   const authorizeUrl = oauthClient.generateAuthUrl({
@@ -27,7 +27,7 @@ export const POST = async () => {
 const getUserData: any = async (token: string) => {
   const res = await fetch(
     `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`,
-    { cache: "no-store" }
+    { cache: "no-store" },
   );
   const data = await res.json();
   return data;
@@ -42,7 +42,7 @@ export const GET = async (req: NextRequest) => {
     const oauthClient = new OAuth2Client(
       process.env.CLIENT_ID,
       process.env.CLIENT_SECRET,
-      process.env.REDIRECT_URL
+      process.env.REDIRECT_URL,
     );
 
     const res = await oauthClient.getToken(code!);
@@ -50,7 +50,8 @@ export const GET = async (req: NextRequest) => {
     const user = oauthClient.credentials;
 
     // SETUP RESPONSE OBJECT
-    const response = NextResponse.redirect(req.nextUrl.origin);
+    const redirectUrl = new URL(`${req.nextUrl.origin}/dashboard`);
+    const response = NextResponse.redirect(redirectUrl);
 
     // EXTRACT NECESSARY INFO FROM GOOGLE
     const { sub, name, picture, email } = await getUserData(user.access_token!);
@@ -95,7 +96,7 @@ export const GET = async (req: NextRequest) => {
     console.log(err);
     return NextResponse.json(
       { message: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };
