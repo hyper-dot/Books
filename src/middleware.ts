@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { getSession, updateSession } from "./lib/auth";
-import { redirect } from "next/navigation";
 
 const privatePath = ["/secret"];
 
@@ -18,10 +17,7 @@ export async function middleware(request: NextRequest) {
     const payload = await getSession();
     if (!payload) return NextResponse.redirect(new URL(redirectUrl));
 
-    // If there is nextUrl then return to nextUrl
-    const nextTo = request.nextUrl.searchParams.get("nextTo");
-    if (nextTo) return NextResponse.redirect(new URL(nextTo));
-    // return NextResponse.redirect()
+    return NextResponse.next();
   }
 
   const res = await updateSession(request);

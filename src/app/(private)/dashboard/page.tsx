@@ -1,11 +1,16 @@
 import React from "react";
-import ExpenditureChart from "@/components/dashboard/Chart";
+import { ExpenditureChart, BarC } from "@/components/dashboard/Chart";
 
 const page = () => {
   return (
-    <div>
-      <div className="w-[500px] h-[500px]">
+    <div className="relative">
+      <div className="w-full h-[500px]">
         <ExpenditureChart />
+      </div>
+      <div>
+        <div className="grid min-h-[500px] grid-cols-2">
+          <BarC />
+        </div>
       </div>
     </div>
   );

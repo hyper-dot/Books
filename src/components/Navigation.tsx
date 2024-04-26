@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
 import { LogInIcon } from "lucide-react";
-import { ModeToggle } from "./ThemeToggler";
+import ModeToggle from "./ThemeToggler";
 
 const menus = [
   { title: "Home", to: "/" },
