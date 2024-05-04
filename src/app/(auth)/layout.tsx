@@ -5,6 +5,7 @@ import React, { ReactNode } from "react";
 const layout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
   const isSigninPage = pathname === "/signin";
+
   return (
     <div className="md:grid md:grid-cols-2 min-h-screen">
       {children}
