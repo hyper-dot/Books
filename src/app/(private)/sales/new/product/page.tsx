@@ -1,5 +1,4 @@
 "use client";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { H3 } from "@/components/ui/typography";
 import { Camera } from "lucide-react";
@@ -9,8 +8,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormInput from "@/components/form/FormInput";
 import { TProductSchema, productSchema } from "@/schema/product.schema";
+import { useAddProductMutation } from "@/hooks/mutations/product.mutation";
+import toast from "react-hot-toast";
 
-const page = () => {
+export default function Page() {
   const {
     register,
     handleSubmit,
@@ -19,7 +20,14 @@ const page = () => {
     resolver: zodResolver(productSchema),
   });
 
-  const onSubmit = (data: TProductSchema) => {};
+  const { mutateAsync } = useAddProductMutation();
+  const onSubmit = (data: TProductSchema) => {
+    toast.promise(mutateAsync(data), {
+      loading: "Adding product...",
+      success: "Product added successfully",
+      error: (err) => err.message,
+    });
+  };
   console.log(errors);
 
   return (
@@ -32,15 +40,15 @@ const page = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="py-5 grid lg:grid-cols-6"
       >
-        <div className="h-48 w-48 mt-2 border flex flex-col items-center justify-center text-muted-foreground text-center">
+        <div className="h-48 mx-4 w-48 mt-2 border flex flex-col items-center justify-center text-muted-foreground text-center">
           <p>Add Image</p>
           <p className="text-xs">Recommended Size</p>
           <p className="text-xs">400x400</p>
           <Camera />
         </div>
-        <div className="col-span-3 px-4 space-y-3">
+        <div className="col-span-3 px-4 space-y-3 mt-4">
           <div>
-            <Label>Product name</Label>
+            <Label required>Product name</Label>
             <FormInput
               placeholder="Enter product name"
               register={register("name")}
@@ -90,6 +98,4 @@ const page = () => {
       </form>
     </>
   );
-};
-
-export default page;
+}
