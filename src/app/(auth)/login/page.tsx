@@ -11,8 +11,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { TLoginSchema, loginSchema } from "@/schema/auth.schema";
 import { useLoginMutation } from "@/hooks/mutations/auth.mutation";
 import FormSubmitBtn from "@/components/form/FormSubmitBtn";
+import Image from "next/image";
 
-export default function page() {
+export default function Page() {
   const {
     handleSubmit,
     register,
@@ -65,12 +66,12 @@ export default function page() {
           <p className="text-center">Or</p>
 
           <Button type="button" className="flex w-full gap-2" variant="outline">
-            <img width={20} src="/google.svg" alt="" />
+            <Image width={20} height={20} src="/google.svg" alt="" />
             Continue with Google
           </Button>
 
           <p className="pt-5 text-center">
-            Don't have an account ?{" "}
+            Don&apos;t have an account ?{" "}
             <Link
               className="text-blue-500 underline-offset-2 hover:underline"
               href="/register"

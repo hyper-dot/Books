@@ -9,7 +9,7 @@ const HeroImage = () => {
   return (
     <>
       <Head>
-        <link rel="preload" href="/path/to/image.ext" as="image" />
+        <link rel="preload" href="/hero.png" as="image" />
       </Head>
       <div>
         <motion.img

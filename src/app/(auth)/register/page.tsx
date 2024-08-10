@@ -13,8 +13,9 @@ import { TRegisterSchema, registerSchema } from "@/schema/auth.schema";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useRegisterUser } from "@/hooks/mutations/auth.mutation";
+import Image from "next/image";
 
-export default function page() {
+export default function Page() {
   const router = useRouter();
   const {
     handleSubmit,
@@ -100,7 +101,7 @@ export default function page() {
             variant="outline"
             disabled={false}
           >
-            <img width={20} src="/google.svg" alt="" />
+            <Image height={20} width={20} src="/google.svg" alt="" />
             Continue with Google
           </Button>
 

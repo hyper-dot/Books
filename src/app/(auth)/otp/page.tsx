@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { useOTPVerification } from "@/hooks/mutations/auth.mutation";
 import toast from "react-hot-toast";
 
-const page = () => {
+export default function Page() {
   const router = useRouter();
   const [otp, setOtp] = useState("");
   const [timer, setTimer] = useState(60);
@@ -77,6 +77,4 @@ const page = () => {
       </form>
     </div>
   );
-};
-
-export default page;
+}

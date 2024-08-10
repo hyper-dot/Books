@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { TCustomerSchema, customerSchema } from "@/schema/customer.schema";
 import FormInput from "@/components/form/FormInput";
 
-const page = () => {
+export default function Page() {
   const {
     register,
     handleSubmit,
@@ -101,6 +101,4 @@ const page = () => {
       </form>
     </>
   );
-};
-
-export default page;
+}

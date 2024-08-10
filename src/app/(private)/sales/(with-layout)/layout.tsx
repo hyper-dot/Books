@@ -10,7 +10,7 @@ const tabs = [
   { title: "Product", to: "/sales/products" },
 ];
 
-const layout = ({ children }: { children: ReactNode }) => {
+export default function Layout({ children }: { children: ReactNode }) {
   const pathName = usePathname();
   return (
     <div>
@@ -34,6 +34,4 @@ const layout = ({ children }: { children: ReactNode }) => {
       <div className="pb-4 px-4 max-w-[100vw] overflow-auto">{children}</div>
     </div>
   );
-};
-
-export default layout;
+}
