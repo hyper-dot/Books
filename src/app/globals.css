@@ -96,3 +96,13 @@ input[type="number"] {
   border-radius: 3px !important;
   padding: 4px 10px !important;
 }
+
+.scroller {
+  animation: infinite-scroll infinite linear 10s;
+}
+
+@keyframes infinite-scroll {
+  to {
+    transform: translateX(calc(-100% - 2.5rem));
+  }
+}

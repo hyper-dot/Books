@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { H1, H2, H3, P } from "@/components/ui/typography";
+import { H1, P } from "@/components/ui/typography";
 import HeroImage from "@/components/hero/HeroImage";
 import CallToAction from "@/components/hero/CallToAction";
 import Benefits from "@/components/hero/Benefits";
+import Brands from "@/components/hero/Brands";
 
 export default function page() {
   return (
@@ -25,7 +26,8 @@ export default function page() {
         <CallToAction />
       </div>
       <HeroImage />
-      <Benefits />
+      {/* <Benefits /> */}
+      <Brands />
     </div>
   );
 }
