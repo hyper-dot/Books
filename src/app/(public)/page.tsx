@@ -2,12 +2,11 @@ import Link from "next/link";
 import { H1, P } from "@/components/ui/typography";
 import HeroImage from "@/components/hero/HeroImage";
 import CallToAction from "@/components/hero/CallToAction";
-import Benefits from "@/components/hero/Benefits";
 import Brands from "@/components/hero/Brands";
 
 export default function page() {
   return (
-    <div className="max-w-full overflow-hidden">
+    <div className="max-w-full">
       <div className="mx-auto max-w-4xl py-10 text-center">
         <P className="mx-auto my-5 w-fit rounded-full bg-muted px-4">
           <Link href="/pricing" className="text-blue-500">

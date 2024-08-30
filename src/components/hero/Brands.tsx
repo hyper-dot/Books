@@ -1,47 +1,59 @@
+"use client";
 import Image from "next/image";
 import { H3 } from "../ui/typography";
+import { useEffect, useRef } from "react";
 
 const data = [
-  "apple.svg",
-  "cocacola.svg",
-  "meta.svg",
   "oracle.svg",
   "wallmart.svg",
   "toyota.svg",
   "sony.svg",
-  "tata.svg",
-  "alibaba.svg",
-  "amazon.svg",
   "microsoft.svg",
 ];
 
 const Brands = () => {
+  const scrollerRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    if (scrollerRef.current) {
+      const scroller = scrollerRef.current;
+      const items = Array.from(scroller.children);
+
+      // Clone items to create an infinite scroll effect
+      items.forEach((item) => {
+        const clonedItem = item.cloneNode(true) as HTMLElement;
+        scroller.appendChild(clonedItem);
+      });
+
+      // CSS animation to scroll the items
+      const totalWidth = scroller.scrollWidth / 2;
+      scroller.style.animation = `scroll ${totalWidth / 100}s linear infinite`;
+
+      // Cleanup function to remove cloned items
+      return () => {
+        items.forEach(() => {
+          scroller.removeChild(scroller.lastChild as HTMLElement);
+        });
+      };
+    }
+  }, []);
+
   return (
     <div className="h-screen pt-20 text-center">
-      <H3>Used by the best trading communites in the world</H3>
-      <div className="flex">
-        <ul className="pt-20 flex-shrink-0 gap-20 flex items-center scroller bg-blue-100">
-          {data.map((d, idx) => (
+      <H3>Used by the best trading communities in the world</H3>
+      <div className="scroller-container">
+        <ul
+          ref={scrollerRef}
+          className="scroller flex mt-10 items-center gap-[5rem] overflow-hidden"
+        >
+          {data.map((item, idx) => (
             <li key={idx} className="flex-shrink-0">
               <Image
-                width={200}
+                src={`/logo/${item}`}
+                alt=""
+                className="h-[100px] w-[200px]"
                 height={100}
-                src={`/logo/${d}`}
-                alt={d}
-                priority
-              />
-            </li>
-          ))}
-        </ul>
-        <ul className="pt-20 bg-red-100 flex-shrink-0 gap-20 flex items-center scroller">
-          {data.map((d, idx) => (
-            <li key={idx} className="flex-shrink-0">
-              <Image
                 width={200}
-                height={100}
-                src={`/logo/${d}`}
-                alt={d}
-                priority
               />
             </li>
           ))}
