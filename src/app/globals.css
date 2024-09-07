@@ -93,7 +93,7 @@ input[type="number"] {
 .toaster {
   background-color: hsl(var(--primary)) !important;
   color: hsl(var(--primary-foreground)) !important;
-  border-radius: 3px !important;
+  border-radius: 100px !important;
   padding: 4px 10px !important;
 }
 
