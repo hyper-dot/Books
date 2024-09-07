@@ -1,7 +1,8 @@
 import React from "react";
+import ComingSoonPage from "@/components/CommingSoon";
 
-const page = () => {
-  return <div>page</div>;
+const AccountsPage = () => {
+  return <ComingSoonPage />;
 };
 
-export default page;
+export default AccountsPage;
