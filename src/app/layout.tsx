@@ -7,7 +7,7 @@ import QueryProvider from "@/providers/QueryProvider";
 import dynamic from "next/dynamic";
 import { SessionProvider } from "@/providers/SessionProvider";
 import { getSession } from "@/action/auth.action";
-import ComingSoonPage from "@/components/CommingSoon";
+
 const ProgressBar = dynamic(() => import("@/components/shared/ProgressBar"), {
   ssr: false,
 });
