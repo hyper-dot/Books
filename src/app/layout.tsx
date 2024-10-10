@@ -7,6 +7,7 @@ import QueryProvider from "@/providers/QueryProvider";
 import dynamic from "next/dynamic";
 import { SessionProvider } from "@/providers/SessionProvider";
 import { getSession } from "@/action/auth.action";
+import Footer from "@/components/Footer";
 
 const ProgressBar = dynamic(() => import("@/components/shared/ProgressBar"), {
   ssr: false,
@@ -38,7 +39,10 @@ export default async function RootLayout({
         >
           <QueryProvider>
             <ProgressBar />
-            <SessionProvider session={session}>{children}</SessionProvider>
+            <SessionProvider session={session}>
+              {children}
+              <Footer />
+            </SessionProvider>
           </QueryProvider>
           <CustomToaster />
         </ThemeProvider>

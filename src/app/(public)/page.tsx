@@ -3,12 +3,14 @@ import { H1, P } from "@/components/ui/typography";
 import HeroImage from "@/components/hero/HeroImage";
 import CallToAction from "@/components/hero/CallToAction";
 import Brands from "@/components/hero/Brands";
+import Benifits from "@/components/hero/Benefits";
+import TestimonialCarousel from "@/components/Testimonials";
 
 export default function page() {
   return (
     <div className="max-w-full">
       <div className="mx-auto max-w-4xl py-10 text-center">
-        <P className="mx-auto my-5 w-fit rounded-full bg-muted px-4">
+        <P className="mx-auto text-sm my-5 w-fit rounded-full bg-muted px-4">
           <Link href="/pricing" className="text-blue-500">
             🎉 Get 50%
           </Link>{" "}
@@ -25,8 +27,9 @@ export default function page() {
         <CallToAction />
       </div>
       <HeroImage />
-      {/* <Benefits /> */}
       <Brands />
+      <Benifits />
+      <TestimonialCarousel />
     </div>
   );
 }

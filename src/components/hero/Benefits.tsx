@@ -1,46 +1,19 @@
-"use client";
-import { H1, H2 } from "../ui/typography";
-import { motion, useTransform, useViewportScroll } from "framer-motion";
-import { benefits } from "@/__data__/benefits";
-import { cn } from "@/lib/utils";
+import BenifitsCard from "./BenifitCard";
+import { data } from "@/__data__/benefits";
 
-const Benifits = () => {
-  const { scrollYProgress } = useViewportScroll();
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.5]);
+export default function Component() {
   return (
-    <div className="py-20 w-full" id="benifits">
-      <h4 className="text-xl text-accent-2 font-semibold text-center">
-        Benifits
-      </h4>
-      <H1 className="text-center">
-        What Can You <span className="text-accent-2">Expect</span>
-      </H1>
-      <div className="space-y-20 mt-10 2xl:container px-4 md:px-10 2xl:px-0">
-        {benefits.map((item, idx) => (
-          <div key={idx} className="grid md:grid-cols-2 md:gap-[5%]">
-            <motion.img
-              style={{ scale }}
-              src={item.image}
-              alt={item.heading}
-              className={cn("w-2/3 mx-auto", idx % 2 == 0 ? "md:order-1" : "")}
-            />
-
-            <div className="flex flex-col justify-center w-[80%] mx-auto">
-              <H2 className="py-10 font-bold relative">
-                {item.heading}
-                <span className="absolute left-0 bottom-8 w-[50%] h-[2px] bg-accent-2"></span>
-              </H2>
-              <ul className="space-y-9 text-xl text-muted-foreground list-disc list-inside">
-                {item.benefits.map((i, idx) => (
-                  <li key={idx}>{i}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        ))}
-      </div>
+    <div className="relative mt-10 bg-[url('/patterns/dots.svg')] space-y-[10%] max-w-full before:absolute before:top-0 before:left-0 before:w-full before:h-16 before:bg-gradient-to-b before:from-background before:to-transparent after:absolute after:bottom-0 after:left-0 after:w-full after:h-16 after:bg-gradient-to-t after:from-background after:to-transparent">
+      <div className="bg-background absolute inset-0 opacity-95 dark:opacity-0"></div>
+      {data.map((item, idx) => (
+        <BenifitsCard
+          title={item.title}
+          mainTitle={item.mainTitle}
+          json={item.image}
+          desc={item.description}
+          key={idx}
+        />
+      ))}
     </div>
   );
-};
-
-export default Benifits;
+}

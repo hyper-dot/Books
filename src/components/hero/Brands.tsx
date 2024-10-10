@@ -39,7 +39,7 @@ const Brands = () => {
   }, []);
 
   return (
-    <div className="h-screen pt-20 text-center">
+    <div className="pt-20 text-center max-w-[100vw] overflow-hidden">
       <H3>Used by the best trading communities in the world</H3>
       <div className="scroller-container">
         <ul

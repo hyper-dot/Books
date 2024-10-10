@@ -11,11 +11,11 @@ const HeroImage = () => {
       <Head>
         <link rel="preload" href="/hero.png" as="image" />
       </Head>
-      <div>
+      <div className="max-w-full overflow-hidden md:overflow-visible">
         <motion.img
           style={{ scale }}
           src="/hero.png"
-          className="dark:hidden w-full md:w-[70%] mx-auto min-h-[500px]"
+          className="dark:hidden w-full md:w-[70%] object-contain mx-auto min-h-[500px]"
           alt=""
         />
         <motion.img
