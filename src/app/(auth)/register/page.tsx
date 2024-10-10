@@ -93,9 +93,9 @@ export default function Page() {
             Register
           </FormSubmitBtn>
 
-          <p className="text-center">Or</p>
+          {/* <p className="text-center">Or</p> */}
 
-          <Button
+          {/* <Button
             type="button"
             className="flex w-full gap-2"
             variant="outline"
@@ -103,7 +103,7 @@ export default function Page() {
           >
             <Image height={20} width={20} src="/google.svg" alt="" />
             Continue with Google
-          </Button>
+          </Button> */}
 
           <p className="pt-5 text-center">
             Already have an account ?{" "}

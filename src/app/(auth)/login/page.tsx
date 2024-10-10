@@ -63,12 +63,12 @@ export default function Page() {
             Login
           </FormSubmitBtn>
 
-          <p className="text-center">Or</p>
+          {/* <p className="text-center">Or</p> */}
 
-          <Button type="button" className="flex w-full gap-2" variant="outline">
+          {/* <Button type="button" className="flex w-full gap-2" variant="outline">
             <Image width={20} height={20} src="/google.svg" alt="" />
             Continue with Google
-          </Button>
+          </Button> */}
 
           <p className="pt-5 text-center">
             Don&apos;t have an account ?{" "}
