@@ -4,17 +4,22 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { FormEvent, useEffect, useState } from "react";
 import { BackBtn } from "@/components/common/BackBtn";
-import { cn } from "@/lib/utils";
-import { useOTPVerification } from "@/hooks/mutations/auth.mutation";
+import {
+  useGenerateNewOTP,
+  useOTPVerification,
+} from "@/hooks/mutations/auth.mutation";
 import toast from "react-hot-toast";
+
+const OTP_RESET_TIMER = 60; // in seconds
 
 export default function Page() {
   const router = useRouter();
   const [otp, setOtp] = useState("");
-  const [timer, setTimer] = useState(60);
+  const [timer, setTimer] = useState(OTP_RESET_TIMER);
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const { mutateAsync, isPending } = useOTPVerification();
+  const newOTPMutation = useGenerateNewOTP();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,6 +32,17 @@ export default function Page() {
       error: (err) => err.message || "Something went wrong !!",
     });
   };
+
+  function handeNewOTPMRequest() {
+    const promise = newOTPMutation
+      .mutateAsync({ email: email! })
+      .then(() => setTimer(OTP_RESET_TIMER));
+    toast.promise(promise, {
+      loading: "Please wait ...",
+      success: "New otp sent to email successfully",
+      error: (err) => err.message || "Something went wrong !!",
+    });
+  }
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -60,15 +76,17 @@ export default function Page() {
           Didnt receive code ?{" "}
           <button
             type="button"
-            disabled={!!timer}
-            className={cn(
-              "font-bold cursor-not-allowed",
-              !timer ? "text-primary cursor-pointer" : "",
-            )}
+            disabled={!!timer || newOTPMutation.isPending}
+            onClick={handeNewOTPMRequest}
+            className="font-bold cursor-pointer disabled:cursor-not-allowed text-blue-600 dark:text-blue-400 disabled:text-muted-foreground disabled:dark:text-muted-foreground"
           >
             Resend
           </button>{" "}
-          in <span className="font-bold">{timer}</span>s
+          {!!timer && (
+            <>
+              in <span className="font-bold">{timer}</span>s
+            </>
+          )}
         </p>
 
         <Button disabled={isPending} size="lg" className="w-full">

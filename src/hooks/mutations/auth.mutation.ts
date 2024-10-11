@@ -20,6 +20,14 @@ export const useOTPVerification = () => {
   });
 };
 
+export function useGenerateNewOTP() {
+  return useMutation({
+    mutationFn: async (payload: { email: string }) => {
+      return await apiClient.post("/otp/regenerate", payload);
+    },
+  });
+}
+
 // Register mutations
 export const useLoginMutation = () => {
   const queryClient = useQueryClient();
