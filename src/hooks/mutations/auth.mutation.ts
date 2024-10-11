@@ -1,5 +1,5 @@
 import { login } from "@/action/auth.action";
-import { r } from "@/config/request";
+import { apiClient } from "@/config/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -7,10 +7,7 @@ import toast from "react-hot-toast";
 export const useRegisterUser = () => {
   return useMutation({
     mutationFn: async (payload: any) => {
-      return await r.post({
-        endpoint: "/auth/register",
-        payload,
-      });
+      return await apiClient.post("/user", payload);
     },
   });
 };
@@ -18,10 +15,7 @@ export const useRegisterUser = () => {
 export const useOTPVerification = () => {
   return useMutation({
     mutationFn: async (payload: any) => {
-      return await r.post({
-        endpoint: "/auth/otp",
-        payload,
-      });
+      return await apiClient.post("/otp/verify", payload);
     },
   });
 };

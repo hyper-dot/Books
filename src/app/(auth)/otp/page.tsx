@@ -49,12 +49,12 @@ export default function Page() {
           Enter OTP code sent to <span className="font-bold">{email}</span>
         </p>
         <InputOTP value={otp} onChange={(val) => setOtp(val)} maxLength={6}>
-          <InputOTPSlot index={0} />
-          <InputOTPSlot index={1} />
-          <InputOTPSlot index={2} />
-          <InputOTPSlot index={3} />
-          <InputOTPSlot index={4} />
-          <InputOTPSlot index={5} />
+          <InputOTPSlot className="bg-background text-foreground" index={0} />
+          <InputOTPSlot className="bg-background text-foreground" index={1} />
+          <InputOTPSlot className="bg-background text-foreground" index={2} />
+          <InputOTPSlot className="bg-background text-foreground" index={3} />
+          <InputOTPSlot className="bg-background text-foreground" index={4} />
+          <InputOTPSlot className="bg-background text-foreground" index={5} />
         </InputOTP>
         <p className="text-sm text-muted-foreground">
           Didnt receive code ?{" "}
