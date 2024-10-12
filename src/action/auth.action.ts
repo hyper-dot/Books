@@ -6,6 +6,8 @@ import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { r } from "@/config/request";
 import { handleUnauthorized } from "@/lib/auth.lib";
+import axios from "axios";
+import { apiClient } from "@/config/axios";
 
 const secretKey = process.env.JWT_SECRET;
 const key = new TextEncoder().encode(secretKey);
@@ -27,7 +29,6 @@ export async function decrypt(input: string): Promise<any> {
 
 export async function logout() {
   // Destroy the session
-  cookies().set("session", "", { expires: new Date(0) });
   cookies().set("token", "", { expires: new Date(0) });
   cookies().set("refresh", "", { expires: new Date(0) });
   redirect("/");
@@ -46,13 +47,11 @@ export async function getSession() {
 
 export async function checkSession({ request }: { request: NextRequest }) {
   try {
-    // GET new session from the backend
-    await r.post({
-      endpoint: "/auth/refresh",
-      payload: { refreshToken: request.cookies.get("refresh")?.value },
-    });
-    // RETURN
-    return NextResponse.next();
+    const refreshToken = request.cookies.get("refresh")?.value;
+    const { data } = await apiClient.post("/auth/refresh", { refreshToken });
+    const response = NextResponse.next();
+    response.cookies.set("token", data?.data?.accessToken);
+    return response;
   } catch (err) {
     console.log(err);
     return handleUnauthorized(request);
@@ -126,14 +125,8 @@ export const login = async (payload: any): Promise<Response> => {
       }
     } else {
       const data = await res.json();
-      const session = await encrypt(data);
-
-      cookies().set("token", data.accessToken);
-      cookies().set("refresh", data.user.refreshToken);
-      cookies().set("session", session, {
-        httpOnly: true,
-        expires: new Date(Date.now() + 24 * 60 * 1000),
-      });
+      cookies().set("token", data?.data?.accessToken, { secure: true });
+      cookies().set("refresh", data?.data?.refreshToken, { secure: true });
       revalidatePath("/", "layout");
 
       return {
@@ -142,6 +135,7 @@ export const login = async (payload: any): Promise<Response> => {
       };
     }
   } catch (err: any) {
+    console.log("Error while logging in", err);
     return {
       code: err.code || 500,
       error: err.message || "couldn't connect to server",

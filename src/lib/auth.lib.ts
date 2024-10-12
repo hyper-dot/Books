@@ -13,6 +13,5 @@ export const handleUnauthorized = (req: NextRequest) => {
   const res = NextResponse.redirect(req.nextUrl.origin + "/login");
   res.cookies.delete("refresh");
   res.cookies.delete("token");
-  res.cookies.delete("session");
   return res;
 };

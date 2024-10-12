@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { H2 } from "@/components/ui/typography";
 import { BackBtn } from "@/components/common/BackBtn";
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
 import FormInput from "@/components/form/FormInput";
@@ -11,7 +10,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { TLoginSchema, loginSchema } from "@/schema/auth.schema";
 import { useLoginMutation } from "@/hooks/mutations/auth.mutation";
 import FormSubmitBtn from "@/components/form/FormSubmitBtn";
-import Image from "next/image";
 
 export default function Page() {
   const {
