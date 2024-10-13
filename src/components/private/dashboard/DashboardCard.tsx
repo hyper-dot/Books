@@ -90,7 +90,7 @@ const DashboardCard = ({
 
 export const CardsContainer = () => {
   return (
-    <div className="flex gap-8 max-w-[95vw] overflow-auto">
+    <div className="flex overflow-auto max-w-[93vw] gap-4">
       {cardsData.map((item) => (
         <DashboardCard
           key={item.id}
