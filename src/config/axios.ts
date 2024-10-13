@@ -27,6 +27,7 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (res) => res,
   (err: AxiosError) => {
+    console.log(err);
     //@ts-ignore
     throw new Error(err.response?.data?.error || "An unknown error occurred");
   },

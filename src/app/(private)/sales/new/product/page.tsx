@@ -18,6 +18,7 @@ export default function Page() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<TProductSchema>({
     resolver: zodResolver(productSchema),
@@ -26,11 +27,12 @@ export default function Page() {
   const { mutateAsync } = useAddProductMutation();
 
   const onSubmit = (data: TProductSchema) => {
-    const productData = {
+    const payload = {
       ...data,
-      image_url: productImageUrl,
+      image: productImageUrl,
     };
-    toast.promise(mutateAsync(productData), {
+    const promise = mutateAsync(payload).then(() => reset());
+    toast.promise(promise, {
       loading: "Adding product...",
       success: "Product added successfully",
       error: (err) => err.message,
@@ -85,27 +87,27 @@ export default function Page() {
             <FormInput
               type="number"
               placeholder="Enter reorder level"
-              register={register("reorder_level")}
-              errors={errors.reorder_level}
+              register={register("reorderLevel")}
+              errors={errors.reorderLevel}
             />
           </div>
 
           <div>
-            <Label>Sales Price</Label>
+            <Label required>Sales Price</Label>
             <FormInput
               type="number"
               placeholder="Enter sales price per unit"
-              register={register("sales_price")}
-              errors={errors.sales_price}
+              register={register("salesPrice")}
+              errors={errors.salesPrice}
             />
           </div>
           <div>
-            <Label>Cost Price</Label>
+            <Label required>Cost Price</Label>
             <FormInput
               type="number"
               placeholder="Enter cost price per unit"
-              register={register("cost_price")}
-              errors={errors.cost_price}
+              register={register("costPrice")}
+              errors={errors.costPrice}
             />
           </div>
           <Button type="submit">Add Product</Button>

@@ -6,7 +6,6 @@ import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { r } from "@/config/request";
 import { handleUnauthorized } from "@/lib/auth.lib";
-import axios from "axios";
 import { apiClient } from "@/config/axios";
 
 const secretKey = process.env.JWT_SECRET;
@@ -67,19 +66,13 @@ type Response = {
 export async function refreshToken() {
   try {
     const cookieJar = cookies();
-    const refresh = cookieJar.get("refresh");
+    const refreshToken = cookieJar.get("refresh")?.value;
 
-    if (refresh?.value) {
-      const newSession = await r.post({
-        endpoint: "/auth/refresh",
-        payload: { refreshToken: refresh.value },
-      });
-      const { accessToken } = newSession;
-      cookieJar.set("token", accessToken, {
-        httpOnly: true,
+    if (refreshToken) {
+      const { data } = await apiClient.post("/auth/refresh", { refreshToken });
+      cookieJar.set("token", data?.data?.accessToken, {
         expires: new Date(Date.now() + 15 * 1000),
       });
-      console.log("Cookie refreshed successfully !!");
     }
   } catch (err) {
     console.log("ERROR WHILE REFRESHING TOKEN", err);
@@ -99,7 +92,6 @@ export const login = async (payload: any): Promise<Response> => {
 
     if (!res.ok) {
       const data = await res.json();
-      console.log(data);
 
       switch (true) {
         case res.status === 403:
@@ -107,25 +99,30 @@ export const login = async (payload: any): Promise<Response> => {
             error: "Please verify OTP first",
             code: res.status,
           };
+        case res.status === 401:
+          return {
+            error: data.error,
+            code: res.status,
+          };
         case res.status >= 400 && res.status < 500:
           return {
-            error: data.message || "Something went wrong",
+            error: data.error || "Something went wrong",
             code: res.status,
           };
         case res.status >= 500:
           return {
-            error: "Internal server error",
+            error: data.error || "Internal server error",
             code: res.status,
           };
         default:
           return {
-            error: data.message || "Something went wrong !!",
+            error: data.error || "Something went wrong !!",
             code: res.status,
           };
       }
     } else {
       const data = await res.json();
-      cookies().set("token", data?.data?.accessToken, { secure: true });
+      cookies().set("token", data?.data?.accessToken);
       cookies().set("refresh", data?.data?.refreshToken, { secure: true });
       revalidatePath("/", "layout");
 
@@ -138,7 +135,7 @@ export const login = async (payload: any): Promise<Response> => {
     console.log("Error while logging in", err);
     return {
       code: err.code || 500,
-      error: err.message || "couldn't connect to server",
+      error: err.error || "couldn't connect to server",
     };
   }
 };
