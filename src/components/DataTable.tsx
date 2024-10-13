@@ -38,7 +38,6 @@ interface DataTableProps<TData> {
   searchKey?: string;
   renderTopToolbar?: () => React.ReactNode;
   renderBottomToolbar?: () => React.ReactNode;
-  isLoading?: boolean;
   createLink?: string;
   createFunction?: () => void;
 }
@@ -49,7 +48,6 @@ export function DataTable<TData>({
   searchKey,
   renderTopToolbar,
   renderBottomToolbar,
-  isLoading = false,
   createLink,
   createFunction,
 }: DataTableProps<TData>) {
@@ -157,13 +155,12 @@ export function DataTable<TData>({
             ))}
           </TableHeader>
           <TableBody>
-            {isLoading ? (
-              <TableLoadingSkeleton columns={columns.length} rows={5} />
-            ) : table.getRowModel().rows?.length ? (
+            {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="h-10"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

@@ -33,8 +33,8 @@ export default function DataTableSkeleton() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {[...Array(4)].map((_, rowIndex) => (
-            <TableRow key={rowIndex}>
+          {[...Array(10)].map((_, rowIndex) => (
+            <TableRow key={rowIndex} className="h-10">
               <TableCell>
                 <Skeleton className="h-5 w-4" />
               </TableCell>
