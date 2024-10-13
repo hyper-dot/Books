@@ -1,14 +1,15 @@
-"use client";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { ArrowRight, CircleAlert, LayoutGrid } from "lucide-react";
-import { useSession } from "@/providers/SessionProvider";
 
 const CallToAction = () => {
-  const { session } = useSession();
+  const cookieJar = cookies();
+  const token = cookieJar.get("token")?.value;
+
   return (
     <div className="flex items-center justify-center gap-4">
-      {session ? (
+      {token ? (
         <Button asChild>
           <Link className="flex gap-2" href="/dashboard">
             <LayoutGrid size={16} />

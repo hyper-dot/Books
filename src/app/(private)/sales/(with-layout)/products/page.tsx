@@ -1,8 +1,8 @@
 import React from "react";
-import ComingSoonPage from "@/components/CommingSoon";
+import Page from "@/app/(private)/inventory/page";
 
 const ProductsPage = () => {
-  return <ComingSoonPage />;
+  return <Page />;
 };
 
 export default ProductsPage;

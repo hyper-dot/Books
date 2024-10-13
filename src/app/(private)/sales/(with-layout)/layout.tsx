@@ -31,7 +31,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           </li>
         ))}
       </ul>
-      <div className="pb-4 px-4 max-w-[100vw] overflow-auto">{children}</div>
+      <div className="pb-4 max-w-[100vw] overflow-auto">{children}</div>
     </div>
   );
 }

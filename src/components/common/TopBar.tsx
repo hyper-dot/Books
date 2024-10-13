@@ -15,6 +15,7 @@ import { ModeToggle } from "./ModeToggle";
 import AddDropdown from "./AddDropdown";
 import Image from "next/image";
 import Head from "next/head";
+
 const TopBar = () => {
   return (
     <>

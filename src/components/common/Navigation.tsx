@@ -3,7 +3,6 @@ import Link from "next/link";
 import { LogIn, LogOutIcon } from "lucide-react";
 import Logo from "./Logo";
 import { ModeToggle } from "./ModeToggle";
-import { useSession } from "@/providers/SessionProvider";
 import { HiMenuAlt2 } from "react-icons/hi";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -20,8 +19,8 @@ const menus = [
   { title: "Contact", to: "/contact" },
 ];
 
-export const Navigation = () => {
-  const { session } = useSession();
+export const Navigation = ({ token }: { token: string }) => {
+  console.log("THIS IS TOKEN", token);
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -50,7 +49,7 @@ export const Navigation = () => {
         <ModeToggle />
       </ul>
       <div className="hidden md:flex ">
-        {session ? (
+        {token ? (
           <>
             <LogoutAlert>
               <Button className="font-medium gap-2">
@@ -91,7 +90,7 @@ export const Navigation = () => {
               </li>
             ))}
 
-            {session ? (
+            {token ? (
               <div className="flex gap-2">
                 <Button className="w-full" asChild>
                   <Link href="/dashboard" onClick={handleMenuClick}>

@@ -75,7 +75,7 @@ export async function refreshToken() {
     if (refreshToken) {
       const { data } = await apiClient.post("/auth/refresh", { refreshToken });
       cookieJar.set("token", data?.data?.accessToken, {
-        expires: new Date(Date.now() + 15 * 1000),
+        expires: new Date(Date.now() + 15 * 60 * 1000),
       });
     }
   } catch (err) {

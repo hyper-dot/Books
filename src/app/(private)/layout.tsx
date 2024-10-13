@@ -11,7 +11,7 @@ const layout = ({ children }: { children: ReactNode }) => {
         <SideNav />
         <div className="flex-1">
           <TopBar />
-          {children}
+          <main className="px-4">{children}</main>
         </div>
       </div>
     </>

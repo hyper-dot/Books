@@ -10,7 +10,7 @@ const RefreshToken = () => {
     }
 
     // Set the interval and store the interval ID
-    const intervalId = setInterval(getRefreshToken, 5 * 60 * 1000); // MM * SS * MS
+    const intervalId = setInterval(getRefreshToken, 10 * 1000); // MM * SS * MS
 
     // Return a cleanup function to clear the interval on component unmount
     return () => {
