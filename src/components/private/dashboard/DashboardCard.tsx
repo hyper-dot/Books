@@ -68,7 +68,9 @@ const DashboardCard = ({
     >
       <div className="flex justify-between">
         <div>
-          <div className="text-sm font-medium text-[#202224]/70">{title}</div>
+          <div className="text-sm font-medium text-[#202224]/70 dark:text-white/80">
+            {title}
+          </div>
           <div className="mt-3 text-[1.8rem] font-semibold">{number}</div>
         </div>
         <div>
