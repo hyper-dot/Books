@@ -1,5 +1,6 @@
 "use client";
 import { DataTable } from "@/components/DataTable";
+import DataTableSkeleton from "@/components/skeletons/DataTableSkeleton";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useAPIQuery } from "@/hooks/query";
@@ -12,7 +13,7 @@ export default function Page() {
   const key = ["products"];
   const { data: res, isLoading } = useAPIQuery(route, key);
 
-  if (isLoading || !res) return "loading";
+  if (isLoading || !res) return <DataTableSkeleton />;
 
   const columns: ColumnDef<Product>[] = [
     {
