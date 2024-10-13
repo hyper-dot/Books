@@ -4,7 +4,6 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { r } from "@/config/request";
 import { handleUnauthorized } from "@/lib/auth.lib";
 import { apiClient } from "@/config/axios";
 
@@ -45,16 +44,21 @@ export async function getSession() {
 }
 
 export async function checkSession({ request }: { request: NextRequest }) {
-  try {
-    const refreshToken = request.cookies.get("refresh")?.value;
-    const { data } = await apiClient.post("/auth/refresh", { refreshToken });
-    const response = NextResponse.next();
-    response.cookies.set("token", data?.data?.accessToken);
-    return response;
-  } catch (err) {
-    console.log(err);
+  const token = request.cookies.get("token")?.value;
+  if (!token) {
     return handleUnauthorized(request);
   }
+
+  // try {
+  //   const refreshToken = request.cookies.get("refresh")?.value;
+  //   const { data } = await apiClient.post("/auth/refresh", { refreshToken });
+  //   const response = NextResponse.next();
+  //   response.cookies.set("token", data?.data?.accessToken);
+  //   return response;
+  // } catch (err) {
+  //   console.log(err);
+  //   return handleUnauthorized(request);
+  // }
 }
 
 type Response = {
