@@ -16,6 +16,7 @@ import AddDropdown from "./AddDropdown";
 import Image from "next/image";
 import Head from "next/head";
 import { useAPIQuery } from "@/hooks/query";
+import LogoutAlert from "./LogoutAlert";
 
 const TopBar = () => {
   const { data: res, isLoading } = useAPIQuery("/user/my-data", ["user"]);
@@ -54,12 +55,9 @@ const TopBar = () => {
                 <ChevronDown size={20} className="hidden md:block" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
+                <DropdownMenuItem>Menu 1</DropdownMenuItem>
+                <DropdownMenuItem>Menu 2</DropdownMenuItem>
+                <DropdownMenuItem>Menu 3</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

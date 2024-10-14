@@ -4,6 +4,7 @@ import {
   Gauge,
   HandCoins,
   Library,
+  LogOut,
   Package,
   Settings,
   Wallet,
@@ -11,6 +12,8 @@ import {
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import Logo from "@/components/common/Logo";
+import LogoutAlert from "@/components/common/LogoutAlert";
+import { Button } from "@/components/ui/button";
 
 const menus = [
   {
@@ -59,32 +62,43 @@ const SideNavContent = ({
   const pathName = usePathname();
 
   return (
-    <>
-      <Logo size="sm" />
-      <ul className="space-y-3 pt-10">
-        {menus.map((m, idx) => (
-          <li key={idx}>
-            <Link
-              onClick={() => {
-                if (setState) {
-                  setState(false);
-                }
-              }}
-              href={m.to}
-              className={cn(
-                "flex items-center gap-2 px-2 rounded-r-sm py-2 transition-all border-l-4 border-transparent duration-100 hover:bg-accent-foreground/5",
-                pathName.startsWith(m.to)
-                  ? "bg-accent-foreground/5 text-blue-600 dark:text-blue-300 border-blue-500"
-                  : "",
-              )}
-            >
-              {m.icon}
-              {m.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </>
+    <div className="flex flex-col justify-between min-h-[95vh]">
+      <div>
+        <Logo size="sm" />
+        <ul className="space-y-3 pt-10">
+          {menus.map((m, idx) => (
+            <li key={idx}>
+              <Link
+                onClick={() => {
+                  if (setState) {
+                    setState(false);
+                  }
+                }}
+                href={m.to}
+                className={cn(
+                  "flex items-center gap-2 px-2 rounded-r-sm py-2 transition-all border-l-4 border-transparent duration-100 hover:bg-accent-foreground/5",
+                  pathName.startsWith(m.to)
+                    ? "bg-accent-foreground/5 text-blue-600 dark:text-blue-300 border-blue-500"
+                    : "",
+                )}
+              >
+                {m.icon}
+                {m.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <LogoutAlert>
+        <Button
+          variant="outline"
+          className="text-destructive flex gap-2 text-left hover:text-destructive/80 bg-destructive/5 border-destructive/50 hover:bg-destructive/10"
+        >
+          <LogOut size={16} />
+          Logout
+        </Button>
+      </LogoutAlert>
+    </div>
   );
 };
 
