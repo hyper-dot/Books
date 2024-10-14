@@ -25,6 +25,11 @@ export async function decrypt(input: string): Promise<any> {
   return payload;
 }
 
+export async function getRefreshToken() {
+  const cookieJar = cookies();
+  return cookieJar.get("refresh")?.value;
+}
+
 export async function logout() {
   // Destroy the session
   cookies().set("token", "", { expires: new Date(0) });

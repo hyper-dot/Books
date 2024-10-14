@@ -20,7 +20,6 @@ const menus = [
 ];
 
 export const Navigation = ({ token }: { token: string }) => {
-  console.log("THIS IS TOKEN", token);
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 

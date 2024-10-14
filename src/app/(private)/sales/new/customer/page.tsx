@@ -19,7 +19,9 @@ export default function Page() {
     resolver: zodResolver(customerSchema),
   });
 
-  const onSubmit = (data: TCustomerSchema) => {};
+  const onSubmit = (data: TCustomerSchema) => {
+    console.log(data);
+  };
   console.log(errors);
 
   return (
@@ -28,14 +30,17 @@ export default function Page() {
       <p className="text-muted-foreground text-sm">
         Insert details of your customer
       </p>
-      <form onSubmit={handleSubmit(onSubmit)} className="py-5 grid grid-cols-6">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="py-5 flex gap-8 flex-col lg:flex-row"
+      >
         <div className="h-48 w-48 mt-2 border flex flex-col items-center justify-center text-muted-foreground text-center">
           <p>Add Image</p>
           <p className="text-xs">Recommended Size</p>
           <p className="text-xs">400x400</p>
           <Camera />
         </div>
-        <div className="col-span-3 px-4 space-y-3">
+        <div className="col-span-3 px-4 space-y-3 flex-1 max-w-lg">
           <div>
             <Label>Customer Name</Label>
             <FormInput
@@ -78,7 +83,7 @@ export default function Page() {
               </span>{" "}
             </Label>
             <Input
-              {...register("reg_no")}
+              {...register("regNo")}
               type="number"
               placeholder="Enter registration number"
             />
@@ -91,7 +96,7 @@ export default function Page() {
               </span>{" "}
             </Label>
             <Input
-              {...register("due_amount")}
+              {...register("dueAmount")}
               type="number"
               placeholder="Enter Due Amount"
             />

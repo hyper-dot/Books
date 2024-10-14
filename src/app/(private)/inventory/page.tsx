@@ -6,7 +6,19 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useAPIQuery } from "@/hooks/query";
 import { Batch, Product } from "@/types/product.types";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, CircleAlert, SquarePen, Trash } from "lucide-react";
+import {
+  ArrowUpDown,
+  CircleAlert,
+  SquarePen,
+  Trash,
+  TriangleAlert,
+} from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function Page() {
   const route = "/product";
@@ -44,7 +56,6 @@ export default function Page() {
       cell: (item) => Number(item.row.id) + 1,
       enableSorting: false,
     },
-
     {
       accessorKey: "name",
       header: ({ column }) => (
@@ -60,16 +71,32 @@ export default function Page() {
         <div className="capitalize">{item.getValue() as string}</div>
       ),
     },
+
     {
       accessorKey: "totalQty",
       header: "Total Qty",
-      cell: (item) => item.getValue(),
-      enableSorting: false,
-    },
-    {
-      accessorKey: "reorderLevel",
-      header: "Reorder Level",
-      cell: (item) => item.getValue(),
+      cell: (item) => {
+        const totalQty = item.getValue() as number;
+        const reorderLevel = item.row.original.reorderLevel as number;
+
+        return (
+          <div className="flex items-center gap-2">
+            {totalQty}
+            {totalQty < reorderLevel && (
+              <TooltipProvider>
+                <Tooltip delayDuration={100}>
+                  <TooltipTrigger asChild>
+                    <TriangleAlert className="text-yellow-500" size={16} />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    The quantity is lower than the reorder level.
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+          </div>
+        );
+      },
       enableSorting: false,
     },
     {

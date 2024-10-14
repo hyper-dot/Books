@@ -5,8 +5,8 @@ export const customerSchema = z.object({
   email: z.string().email(),
   phone: z.string().min(7, { message: "Phone number is too short." }),
   address: z.string().min(3, { message: "Address is too short." }),
-  reg_no: z.string().optional(),
-  due_amount: z.string().optional(),
+  regNo: z.string().optional(),
+  dueAmount: z.string().optional(),
 });
 
 export type TCustomerSchema = z.infer<typeof customerSchema>;
