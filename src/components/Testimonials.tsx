@@ -8,6 +8,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { H2 } from "./ui/typography";
 
 const testimonials = [
   {
@@ -42,9 +43,13 @@ const testimonials = [
 export default function TestimonialCarousel() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-16">
-      <h2 className="text-3xl font-bold text-center mb-12">
-        What Our Clients Say
-      </h2>
+      <div className="space-y-4 text-center">
+        <p className="text-green-500 font-bold">Testimonials</p>
+        <H2>What Our Clients Say</H2>
+        <p className="max-w-[600px] text-muted-foreground mx-auto md:text-xl/relaxed lg:text-base/relaxed xl:text-lg/relaxed">
+          Find answers to common questions about our products and services.
+        </p>
+      </div>
       <Carousel
         opts={{
           align: "start",

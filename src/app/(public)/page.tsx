@@ -5,6 +5,8 @@ import CallToAction from "@/components/hero/CallToAction";
 import Brands from "@/components/hero/Brands";
 import Benifits from "@/components/hero/Benefits";
 import TestimonialCarousel from "@/components/Testimonials";
+// import NewsletterSection from "@/components/NewsLetter";
+import FAQSection from "@/components/FAQ";
 
 export default function page() {
   return (
@@ -30,6 +32,8 @@ export default function page() {
       <Brands />
       <Benifits />
       <TestimonialCarousel />
+      {/* <NewsletterSection /> */}
+      <FAQSection />
     </div>
   );
 }

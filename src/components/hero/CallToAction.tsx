@@ -25,7 +25,7 @@ const CallToAction = () => {
         </Button>
       )}
       <Button variant="outline" asChild className="flex gap-2 bg-muted">
-        <Link href="#benifits">
+        <Link href="#benefits">
           Learn more
           <CircleAlert size={16} />
         </Link>
