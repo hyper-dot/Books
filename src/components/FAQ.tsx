@@ -9,29 +9,29 @@ import { H2 } from "./ui/typography";
 // Dummy data for FAQ items
 const faqData = [
   {
-    question: "What is your return policy?",
+    question: "What features does the accounting application offer?",
     answer:
-      "We offer a 30-day return policy for all unused items in their original packaging. Please contact our customer service team to initiate a return.",
+      "Our application provides features such as expense tracking, invoicing, profit and loss reports, tax calculation, and inventory management, specifically designed for small enterprises.",
   },
   {
-    question: "How long does shipping take?",
+    question: "Is the application cloud-based?",
     answer:
-      "Shipping times vary depending on your location. Typically, domestic orders are delivered within 3-5 business days, while international orders may take 7-14 business days.",
+      "Yes, our accounting application is fully cloud-based, allowing you to access your financial data from anywhere, at any time, with secure storage and backups.",
   },
   {
-    question: "Do you offer international shipping?",
+    question: "Can I generate tax reports with this application?",
     answer:
-      "Yes, we ship to most countries worldwide. Shipping costs and delivery times may vary based on the destination.",
+      "Yes, you can easily generate tax reports based on your business transactions, helping you stay compliant with tax regulations.",
   },
   {
-    question: "How can I track my order?",
+    question: "Does the application allow multiple user accounts?",
     answer:
-      "Once your order is shipped, you will receive a confirmation email with a tracking number. You can use this number to track your package on our website or the carrier's site.",
+      "Yes, you can create multiple user accounts with different permission levels, ensuring that team members can access only the features and data relevant to their roles.",
   },
   {
-    question: "Are your products eco-friendly?",
+    question: "Is customer support available?",
     answer:
-      "We are committed to sustainability and use eco-friendly materials whenever possible. Many of our products are made from recycled or biodegradable materials.",
+      "Yes, we offer dedicated customer support to help you with any questions or issues. You can contact us via email, phone, or live chat.",
   },
 ];
 
