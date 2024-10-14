@@ -89,9 +89,9 @@ export default function Page() {
       header: "Action",
       cell: (item) => (
         <div className="flex gap-2">
-          <CircleAlert size={20} />
-          <Trash size={20} className="text-destructive" />
-          <SquarePen size={20} className="text-blue-500 dark:text-blue-400" />
+          <CircleAlert className="text-muted-foreground" size={18} />
+          <Trash size={18} className="text-destructive" />
+          <SquarePen size={18} className="text-blue-500 dark:text-blue-400" />
         </div>
       ),
       enableSorting: false,

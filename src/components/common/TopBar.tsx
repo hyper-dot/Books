@@ -15,8 +15,11 @@ import { ModeToggle } from "./ModeToggle";
 import AddDropdown from "./AddDropdown";
 import Image from "next/image";
 import Head from "next/head";
+import { useAPIQuery } from "@/hooks/query";
 
 const TopBar = () => {
+  const { data: res, isLoading } = useAPIQuery("/user/my-data", ["user"]);
+
   return (
     <>
       <Head>
@@ -36,7 +39,7 @@ const TopBar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-4 outline-none">
                 <p className="font-semibold text-sm leading-none text-left hidden md:block">
-                  Roshan Paudel <br />{" "}
+                  {res?.data?.data?.name} <br />{" "}
                   <span className="text-muted-foreground font-normal text-sm">
                     @roshan
                   </span>

@@ -63,7 +63,7 @@ const DashboardCard = ({
     <div
       className={cn(
         bg,
-        "dark:bg-secondary w-[262px] rounded-[14px] flex-shrink-0 border p-4 shadow-[6px_6px_54px_0px] shadow-black/5",
+        "dark:bg-secondary w-[262px] rounded-[14px] flex-shrink-0 border p-4",
       )}
     >
       <div className="flex justify-between">
