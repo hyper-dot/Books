@@ -12,7 +12,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -31,13 +31,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
+import DeleteAlert from "./DeleteAlert";
 
 interface DataTableProps<TData> {
   data: TData[];
   columns: ColumnDef<TData>[];
   searchKey?: string;
-  renderTopToolbar?: () => React.ReactNode;
-  renderBottomToolbar?: () => React.ReactNode;
   createLink?: string;
   createFunction?: () => void;
 }
@@ -46,8 +45,6 @@ export function DataTable<TData>({
   data,
   columns,
   searchKey,
-  renderTopToolbar,
-  renderBottomToolbar,
   createLink,
   createFunction,
 }: DataTableProps<TData>) {
@@ -75,23 +72,36 @@ export function DataTable<TData>({
     },
   });
 
+  console.log(table.getSelectedRowModel());
+
   return (
     <div className="w-full py-4">
       <div className="flex items-center pb-4 gap-2">
         <div className="flex flex-1 items-center gap-2">
           {searchKey && (
-            <Input
-              placeholder={`Filter ${searchKey}...`}
-              value={
-                (table.getColumn(searchKey)?.getFilterValue() as string) ?? ""
-              }
-              onChange={(event) =>
-                table.getColumn(searchKey)?.setFilterValue(event.target.value)
-              }
-              className="h-10 max-w-xs"
-            />
+            <>
+              <Input
+                placeholder={`Filter ${searchKey}...`}
+                value={
+                  (table.getColumn(searchKey)?.getFilterValue() as string) ?? ""
+                }
+                onChange={(event) =>
+                  table.getColumn(searchKey)?.setFilterValue(event.target.value)
+                }
+                className="h-10 max-w-xs"
+              />
+              {table.getSelectedRowModel().rows.length > 0 && (
+                <DeleteAlert
+                  title="Do you want to delete all the records selected ?"
+                  description="This action cannot be undone. This will permanently delete the data and remove your data from our servers."
+                >
+                  <Button size="icon" variant="destructive">
+                    <Trash2 size={20} />
+                  </Button>
+                </DeleteAlert>
+              )}
+            </>
           )}
-          {renderTopToolbar && renderTopToolbar()}
         </div>
 
         <DropdownMenu>
@@ -208,29 +218,7 @@ export function DataTable<TData>({
             Next
           </Button>
         </div>
-        {renderBottomToolbar && renderBottomToolbar()}
       </div>
     </div>
-  );
-}
-
-interface TableLoadingSkeletonProps {
-  columns: number;
-  rows: number;
-}
-
-function TableLoadingSkeleton({ columns, rows }: TableLoadingSkeletonProps) {
-  return (
-    <>
-      {[...Array(rows)].map((_, rowIndex) => (
-        <TableRow key={rowIndex}>
-          {[...Array(columns)].map((_, colIndex) => (
-            <TableCell key={colIndex}>
-              <div className="h-4 w-full animate-pulse rounded bg-gray-200"></div>
-            </TableCell>
-          ))}
-        </TableRow>
-      ))}
-    </>
   );
 }
