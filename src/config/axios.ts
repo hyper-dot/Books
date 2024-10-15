@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import Cookies from "js-cookie"; // Import cookie package
-import { refreshToken } from "@/action/auth.action"; // Assume this function handles refreshing tokens and updating cookies
+import { getSession, refreshToken } from "@/action/auth.action"; // Assume this function handles refreshing tokens and updating cookies
 
 // Create an Axios instance
 export const apiClient = axios.create({
@@ -39,14 +39,14 @@ apiClient.interceptors.response.use(
       try {
         // Call refreshToken to handle refreshing the token and updating cookies
         await refreshToken(); // Assuming refreshToken updates the token in the cookie
-        const token = Cookies.get("token"); // Extract the updated token from cookies
+        const session = await getSession(); // Extract the updated token from cookies
 
         if (originalRequest.headers) {
-          originalRequest.headers.Authorization = `Bearer ${token}`; // Ensure headers is defined
+          originalRequest.headers.Authorization = `Bearer ${session?.accessToken}`; // Ensure headers is defined
         } else {
           // If headers is undefined, initialize it
           originalRequest.headers = {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${session?.accessToken}`,
           };
         }
 

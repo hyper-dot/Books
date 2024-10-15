@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "EZbooks: Simplify your small bussiness' account and inventory management with our intuitive web app. Easily track sales, manage stock, and stay on top of your finances with EZbooks. Perfect for small businesses looking to streamline their operations and boost efficiency.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -38,6 +38,7 @@ export default function RootLayout({
             {children}
             <Footer />
           </QueryProvider>
+
           <CustomToaster />
         </ThemeProvider>
       </body>

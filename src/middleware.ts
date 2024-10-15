@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isPrivateRoute } from "@/lib/auth.lib";
-import { checkSession } from "@/action/auth.action";
+import { updateSession } from "./action/auth.action";
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   if (/\.(png|svg|jpg|webp|)$/.test(pathname)) return;
 
   if (isPrivateRoute(pathname)) {
-    return checkSession({ request });
+    return updateSession(request);
   }
 
   const response = NextResponse.next();

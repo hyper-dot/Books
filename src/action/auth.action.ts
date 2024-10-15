@@ -1,34 +1,13 @@
 "use server";
-import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { handleUnauthorized } from "@/lib/auth.lib";
 import { apiClient } from "@/config/axios";
+import axios, { AxiosError } from "axios";
 
-const secretKey = process.env.JWT_SECRET;
-const key = new TextEncoder().encode(secretKey);
-
-export async function encrypt(payload: any) {
-  return await new SignJWT(payload)
-    .setProtectedHeader({ alg: "HS256" })
-    .setIssuedAt()
-    .setExpirationTime("30h")
-    .sign(key);
-}
-
-export async function decrypt(input: string): Promise<any> {
-  const { payload } = await jwtVerify(input, key, {
-    algorithms: ["HS256"],
-  });
-  return payload;
-}
-
-export async function getRefreshToken() {
-  const cookieJar = cookies();
-  return cookieJar.get("refresh")?.value;
-}
+const EXPIRES = new Date(Date.now() + 15 * 60 * 1000);
 
 export async function logout() {
   // Destroy the session
@@ -38,39 +17,35 @@ export async function logout() {
 }
 
 export async function getSession() {
-  noStore();
-  const session = cookies().get("session")?.value;
-  if (!session) return;
+  const accessToken = cookies().get("token")?.value;
+  const refreshToken = cookies().get("refresh")?.value;
+  if (!accessToken || !refreshToken) return;
+  return { accessToken, refreshToken };
+}
+
+// Updates session in middleware
+export async function updateSession(req: NextRequest) {
+  const refreshToken = req.cookies.get("refresh")?.value;
   try {
-    return await decrypt(session);
+    const { data } = await axios.post(
+      process.env.NEXT_PUBLIC_BACKEND_URL + "/auth/refresh",
+      {
+        refreshToken,
+      },
+    );
+    const response = NextResponse.next();
+    response.cookies.set("token", data.data.accessToken, {
+      expires: EXPIRES,
+      secure: true,
+    });
+    return response;
   } catch (err) {
-    return;
+    if (err instanceof AxiosError) {
+      console.log(err.response?.data);
+    }
+    return handleUnauthorized(req);
   }
 }
-
-export async function checkSession({ request }: { request: NextRequest }) {
-  const token = request.cookies.get("token")?.value;
-  if (!token) {
-    return handleUnauthorized(request);
-  }
-
-  // try {
-  //   const refreshToken = request.cookies.get("refresh")?.value;
-  //   const { data } = await apiClient.post("/auth/refresh", { refreshToken });
-  //   const response = NextResponse.next();
-  //   response.cookies.set("token", data?.data?.accessToken);
-  //   return response;
-  // } catch (err) {
-  //   console.log(err);
-  //   return handleUnauthorized(request);
-  // }
-}
-
-type Response = {
-  message?: string;
-  error?: string;
-  code: number;
-};
 
 export async function refreshToken() {
   try {
@@ -80,15 +55,17 @@ export async function refreshToken() {
     if (refreshToken) {
       const { data } = await apiClient.post("/auth/refresh", { refreshToken });
       cookieJar.set("token", data?.data?.accessToken, {
-        expires: new Date(Date.now() + 15 * 60 * 1000),
+        expires: EXPIRES,
+        secure: true,
       });
     }
+    return true;
   } catch (err) {
     console.log("ERROR WHILE REFRESHING TOKEN", err);
   }
 }
 
-export const login = async (payload: any): Promise<Response> => {
+export const login = async (payload: any): Promise<any> => {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
@@ -131,7 +108,10 @@ export const login = async (payload: any): Promise<Response> => {
       }
     } else {
       const data = await res.json();
-      cookies().set("token", data?.data?.accessToken);
+      cookies().set("token", data?.data?.accessToken, {
+        secure: true,
+        expires: EXPIRES,
+      });
       cookies().set("refresh", data?.data?.refreshToken, { secure: true });
       revalidatePath("/", "layout");
 
