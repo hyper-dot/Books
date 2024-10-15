@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TCustomerSchema, customerSchema } from "@/schema/customer.schema";
 import FormInput from "@/components/form/FormInput";
+import { useAddCustomerMutation } from "@/hooks/mutations/customer.mutation";
+import toast from "react-hot-toast";
 
 export default function Page() {
   const {
@@ -18,9 +20,14 @@ export default function Page() {
   } = useForm<TCustomerSchema>({
     resolver: zodResolver(customerSchema),
   });
+  const { mutateAsync } = useAddCustomerMutation();
 
   const onSubmit = (data: TCustomerSchema) => {
-    console.log(data);
+    toast.promise(mutateAsync(data), {
+      loading: "Please wait...",
+      success: "Customer added successfully",
+      error: (err) => err.message,
+    });
   };
   console.log(errors);
 
