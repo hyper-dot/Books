@@ -19,3 +19,13 @@ export type Product = {
   updatedAt: string;
   __v: number;
 };
+
+export type Customer = {
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+  dueAmount: string;
+  regNumber: string;
+  __v: number;
+};

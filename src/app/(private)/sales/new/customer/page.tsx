@@ -16,6 +16,7 @@ export default function Page() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<TCustomerSchema>({
     resolver: zodResolver(customerSchema),
@@ -23,7 +24,8 @@ export default function Page() {
   const { mutateAsync } = useAddCustomerMutation();
 
   const onSubmit = (data: TCustomerSchema) => {
-    toast.promise(mutateAsync(data), {
+    const promise = mutateAsync(data).then(() => reset());
+    toast.promise(promise, {
       loading: "Please wait...",
       success: "Customer added successfully",
       error: (err) => err.message,

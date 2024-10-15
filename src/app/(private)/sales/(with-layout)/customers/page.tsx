@@ -4,18 +4,18 @@ import DataTableSkeleton from "@/components/skeletons/DataTableSkeleton";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useAPIQuery } from "@/hooks/query";
-import { Batch, Product } from "@/types/product.types";
+import { Batch, Customer, Product } from "@/types/product.types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, CircleAlert, SquarePen, Trash } from "lucide-react";
 
 export default function Page() {
-  const route = "/product";
-  const key = ["products"];
+  const route = "/customer";
+  const key = ["customers"];
   const { data: res, isLoading } = useAPIQuery(route, key);
 
   if (isLoading || !res) return <DataTableSkeleton />;
 
-  const columns: ColumnDef<Product>[] = [
+  const columns: ColumnDef<Customer>[] = [
     {
       id: "select",
       header: ({ table }) => (
@@ -61,26 +61,21 @@ export default function Page() {
       ),
     },
     {
-      accessorKey: "totalQty",
-      header: "Total Qty",
+      accessorKey: "email",
+      header: "Email",
       cell: (item) => item.getValue(),
       enableSorting: false,
     },
     {
-      accessorKey: "reorderLevel",
-      header: "Reorder Level",
+      accessorKey: "phone",
+      header: "Phone",
       cell: (item) => item.getValue(),
       enableSorting: false,
     },
-    {
-      accessorKey: "batches",
-      header: "Batches",
-      cell: (item) => (item.getValue() as Batch[]).length,
-      enableSorting: false,
-    },
+
     {
       accessorKey: "createdAt",
-      header: "Date",
+      header: "Added",
       cell: (item) => (item.getValue() as Date).toLocaleString().split("T")[0],
       enableSorting: false,
     },
@@ -103,7 +98,7 @@ export default function Page() {
       searchKey="name"
       columns={columns}
       data={res.data.data}
-      createLink="/sales/new/product"
+      createLink="/sales/new/customer"
     />
   );
 }

@@ -28,7 +28,7 @@ export async function updateSession(req: NextRequest) {
   const refreshToken = req.cookies.get("refresh")?.value;
   const accessToken = req.cookies.get("token")?.value;
 
-  if (!accessToken && !refreshToken) {
+  if (!accessToken || !refreshToken) {
     return handleUnauthorized(req);
   }
 
