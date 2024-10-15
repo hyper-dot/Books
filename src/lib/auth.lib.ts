@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const privateRoutes = ["/dashboard"];
+const privateRoutes = [
+  "/dashboard",
+  "/sales",
+  "/expenses",
+  "/inventory",
+  "/accounts",
+  "/settings",
+];
 
 export function isPrivateRoute(pathname: string): boolean {
   for (const path of privateRoutes) {

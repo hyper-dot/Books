@@ -26,6 +26,12 @@ export async function getSession() {
 // Updates session in middleware
 export async function updateSession(req: NextRequest) {
   const refreshToken = req.cookies.get("refresh")?.value;
+  const accessToken = req.cookies.get("token")?.value;
+
+  if (!accessToken && !refreshToken) {
+    return handleUnauthorized(req);
+  }
+
   try {
     const { data } = await axios.post(
       process.env.NEXT_PUBLIC_BACKEND_URL + "/auth/refresh",
