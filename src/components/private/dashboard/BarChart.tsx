@@ -72,6 +72,7 @@ export default function BarDiagram() {
         <XAxis dataKey="name" className="text-xs" />
         <YAxis className="text-xs" />
         <Tooltip
+          cursor={{ fill: "hsl(var(--accent))" }}
           content={({ label, payload }) => {
             if (!label || !payload || !payload.length) return null;
             return (
